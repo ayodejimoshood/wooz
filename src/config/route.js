@@ -8,6 +8,9 @@ import {
     useParams,
 } from 'react-router-dom';
 
+import {Provider} from 'react-redux'
+import store from '../store'
+
 import AuthLayout from '../components/Common/AuthLayout';
 
 // import DashboardComponent from './components/DashboardComponent';
@@ -37,8 +40,11 @@ import ResetPassword from '../components/ResetPassword/ResetPassword';
 import Profile from '../components/Profile/Profile';
 import Verification from '../components/Verification/Verification';
 
+
+
 export default function RouterComponent() {
     return (
+        <Provider store={store}>
         <Router>
             <Switch>
                 <AuthLayout path="/signin" component={SignIn} />
@@ -104,5 +110,6 @@ export default function RouterComponent() {
                 <AuthLayout path="/nomatch" component={NoMatch} />
             </Switch>
         </Router>
+        </Provider >
     );
 }
