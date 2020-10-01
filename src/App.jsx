@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import logo from './logo.svg';
 // import './App.css';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -29,14 +29,28 @@ import CustomNavbar from './components/CustomNavbar';
 // import SignUp from './components/SignUp/SignUp';
 // import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 // import { NavbarBrand } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import setAuthToken from './config/setAuthToken'
+import { loadUser } from './actions/account';
 
-
+import store from './store';
 
 function App() {
+
+    if (localStorage.user_data) {
+        setAuthToken(localStorage.user_data);
+    }
+
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
+
     return (
         <div>
             {/* <CustomNavbar /> */}
             <Router />
+            <ToastContainer />
         </div>
     );
 }

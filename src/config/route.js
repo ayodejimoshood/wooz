@@ -11,6 +11,7 @@ import {
 import {Provider} from 'react-redux'
 import store from '../store'
 
+import PrivateRoute from '../components/Common/PrivateRoute';
 import AuthLayout from '../components/Common/AuthLayout';
 
 // import DashboardComponent from './components/DashboardComponent';

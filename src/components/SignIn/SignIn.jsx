@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component, useState, select, Switch } from 'react';
+import React, { Component, useState, select, Switch, useEffect } from 'react';
 // import {
 //     Jumbotron,
 //     Container,
@@ -31,6 +31,12 @@ import React, { Component, useState, select, Switch } from 'react';
 //     FormCheck,
 // } from 'react-bootstrap';
 import axios from '../../config/axios';
+import { connect } from 'react-redux';
+import {login} from '../../actions/account'
+
+import { Link, withRouter, Redirect } from 'react-router-dom';
+
+
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
@@ -61,11 +67,19 @@ import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
 
-const SignIn = () => {
+const SignIn = ({login, history, isAuthenticated}) => {
     const [email, setEmail] = useState('emekaosuagwu@hotmail.com');
     const [password, setPassword] = useState('password');
 
-    let history = useHistory();
+    useEffect(() => {
+        if (isAuthenticated) {
+            return history.push('/')
+          }
+    });
+
+    
+
+    // let history = useHistory();
     const handleSignin = async () => {
         const request_data = {
             email,
@@ -81,6 +95,7 @@ const SignIn = () => {
                 alert('invalid email or password');
                 console.log(error, 'error');
             });
+        login(email, password, history)
     };
 
     // render() {
@@ -214,16 +229,13 @@ const SignIn = () => {
     // }
 };
 
-export default SignIn;
-
-// import React from 'react';
-
-// const SignIn = () => {
-//     return (
-//         <div>
-
-//         </div>
-//     );
-// }
-
-// export default SignIn;
+const mapStateToProps = state => ({
+    isAuthenticated: state.account.isAuthenticated,
+    loading: state.account.loading
+});
+  
+  export default connect(
+    mapStateToProps,
+    { login }
+  )(withRouter(SignIn));
+  

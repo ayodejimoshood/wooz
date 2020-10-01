@@ -40,7 +40,6 @@ class CustomNavbar extends Component {
     }
 
     componentDidMount() {
-        console.log('called');
         const auth = reactLocalStorage.getObject('user_data');
         console.log(auth, 'fkvdjfvkdjfvkdfj');
         if (Object.keys(auth).length != 0) {
