@@ -99,12 +99,6 @@ function OnTheGo() {
             backgroundImage: busbannerimage,
         },
         {
-            title: 'Ferries',
-            icon: 'djcdfvd',
-            backgroundImage: ferriesbannerimage,
-        },
-        
-        {
             title: 'Trains',
             icon: 'djcdfvd',
             backgroundImage: trainbannerimage,
@@ -115,9 +109,9 @@ function OnTheGo() {
             backgroundImage: cruisebannerimage,
         },
         {
-            title: 'Shipping',
+            title: 'Ferries',
             icon: 'djcdfvd',
-            backgroundImage: shippingbannerimage,
+            backgroundImage: ferriesbannerimage,
         },
         
     ];
