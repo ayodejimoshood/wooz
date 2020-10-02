@@ -13,6 +13,7 @@ import AuthLayout from '../components/Common/AuthLayout';
 // import DashboardComponent from './components/DashboardComponent';
 
 import Home from '../components/Home/Home';
+// import AdminDashboard from '../admin/dashboard';
 import SignIn from '../components/SignIn/SignIn';
 import SignUp from '../components/SignUp/SignUp';
 import Insurance from '../components/Insurance/Insurance';
@@ -43,6 +44,7 @@ export default function RouterComponent() {
             <Switch>
                 <AuthLayout path="/signin" component={SignIn} />
                 <AuthLayout path="/signup" component={SignUp} />
+                {/* <AuthLayout path="/admin/dashoard" component={AdminDashboard} /> */}
                 <AuthLayout path="/resetpassword" component={ResetPassword} />
                 <AuthLayout path="/verification" component={Verification} />
                 <AuthLayout path="/profile" component={Profile} />
