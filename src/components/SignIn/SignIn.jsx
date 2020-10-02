@@ -30,11 +30,13 @@ import React, { Component, useState, select, Switch, useEffect } from 'react';
 //     FormControl,
 //     FormCheck,
 // } from 'react-bootstrap';
-import axios from '../../config/axios';
-import { connect } from 'react-redux';
+import {Link,Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types';
 import {login} from '../../actions/account'
 
-import { Link, withRouter, Redirect } from 'react-router-dom';
+// import axios from '../../config/axios';
+
 
 
 
@@ -43,7 +45,6 @@ import '../../assets/plugins/nucleo/css/nucleo.css';
 // import "../assets/scss/argon-dashboard-react.scss";
 // import '../../assets/css/argon-dashboard-react.css'
 
-import { reactLocalStorage } from 'reactjs-localstorage';
 
 // reactstrap components
 import {
@@ -63,42 +64,42 @@ import {
     Col,
 } from 'reactstrap';
 
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
 
-const SignIn = ({login, history, isAuthenticated}) => {
-    const [email, setEmail] = useState('emekaosuagwu@hotmail.com');
-    const [password, setPassword] = useState('password');
+export class SignIn extends Component {
+    
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            return history.push('/')
-          }
-    });
-
+    state ={
+        email: '',
+        password: '',
+      }
+    
+      static propTypes = {
+        login: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool
+      }
+    
+      onSubmit = e => {
+        e.preventDefault();
+        this.props.login(this.state.email,this.state.password);
+      }
+    
+      onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+      console.log( [e],e.target.value)
+    }
     
 
     // let history = useHistory();
-    const handleSignin = async () => {
-        const request_data = {
-            email,
-            password,
-        };
-        await axios
-            .post('/auth/signin', request_data)
-            .then((response) => {
-                reactLocalStorage.setObject('user_data', response.data.user);
-                history.push('/');
-            })
-            .catch((error) => {
-                alert('invalid email or password');
-                console.log(error, 'error');
-            });
-        login(email, password, history)
-    };
-
-    // render() {
+  
+    render() {
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/" />
+          }
+      
+          const {email,password} = this.state;
     return (
         <div
             style={{
@@ -143,7 +144,7 @@ const SignIn = ({login, history, isAuthenticated}) => {
                                     Sign in with credentials
                                 </small>
                             </div>
-                            <Form role="form">
+                            <Form role="form" onSubmit={this.onSubmit}>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -152,13 +153,10 @@ const SignIn = ({login, history, isAuthenticated}) => {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                        // defaultValue={email}
                                             placeholder="Email"
-                                            onChange={(event) =>
-                                                setEmail(event.target.value)
-                                            }
                                             type="email"
-                                            autoComplete="new-email"
+                                            onChange={this.onChange}
+                                            value={email}
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -172,11 +170,9 @@ const SignIn = ({login, history, isAuthenticated}) => {
                                         <Input
                                         // defaultValue={password}
                                             placeholder="Password"
-                                            onChange={(event) =>
-                                                setPassword(event.target.value)
-                                            }
                                             type="password"
-                                            autoComplete="new-password"
+                                            onChange={this.onChange}
+                                            value={password}
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -187,10 +183,9 @@ const SignIn = ({login, history, isAuthenticated}) => {
                                             backgroundColor: '#ff5757',
                                             width: '100%',
                                         }}
-                                        onClick={handleSignin}
                                         className="my-4"
                                         color="danger"
-                                        type="button">
+                                        type="submit">
                                         Sign in
                                     </Button>
                                 </div>
@@ -226,16 +221,13 @@ const SignIn = ({login, history, isAuthenticated}) => {
             <FooterSection />
         </div>
     );
-    // }
+    }
 };
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.account.isAuthenticated,
-    loading: state.account.loading
-});
+    isAuthenticated: state.account.isAuthenticated
+  }); 
   
-  export default connect(
-    mapStateToProps,
-    { login }
-  )(withRouter(SignIn));
+  
+  export default connect(mapStateToProps, {login})(SignIn)
   

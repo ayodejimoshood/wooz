@@ -26,39 +26,32 @@ import DropdownMenuComp from './DropdownMenu/DropdownMenu';
 // import MobileNavbarMenu from './DropdownMenu/MobileMenu'
 import './SideNav/SideNav.css';
 import SideNav from './SideNav/SideNav';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { logout } from '../actions/account'
 
 import { reactLocalStorage } from 'reactjs-localstorage';
 
-class CustomNavbar extends Component {
-    constructor() {
-        super();
-        this.state = {
-            isTrue: false,
-            isLoggedIn: false,
-            auth: {},
-        };
-    }
+export class CustomNavbar extends Component {
+    
 
-    componentDidMount() {
-        const auth = reactLocalStorage.getObject('user_data');
-        console.log(auth, 'fkvdjfvkdjfvkdfj');
-        if (Object.keys(auth).length != 0) {
-            this.setState({ isLoggedIn: true, auth });
-        }
-    }
+
+    static propTypes = {
+        account: PropTypes.object.isRequired,
+        logout: PropTypes.func.isRequired
+      };
+
 
     toggle() {
-        const { isTrue } = this.state;
-        this.setState({ isTrue: !isTrue });
-    }
-
-    handleLogout() {
-        reactLocalStorage.setObject('user_data', {});
-        this.setState({ isLoggedIn: false });
+        const { isAuthenticated } = this.state;
+        this.setState({ isAuthenticated: !isAuthenticated });
     }
 
     render() {
+
+
         return (
+
             // <Container className='' style={{ maxWidth: '100%'}}>
             <Navbar
                 style={{ backgroundColor: 'white' }}
@@ -217,7 +210,7 @@ class CustomNavbar extends Component {
                             style={{ color: '#043f7c' }}></i>
                         <Badge variant="danger">3</Badge>
                     </Nav.Link>
-                    {!this.state.isLoggedIn && (
+                    {!this.props.isAuthenticated && (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">
                                 <Button
@@ -242,10 +235,10 @@ class CustomNavbar extends Component {
                         </Nav>
                     )}
 
-                    {this.state.isLoggedIn && (
+                    {this.props.isAuthenticated && (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
-                                Hello, {this.state.auth.firstName};
+                                Hello, {this.props.account.firstName};
                             </Nav.Link>
                             <Dropdown alignRight>
                                 <Dropdown.Toggle
@@ -284,7 +277,7 @@ class CustomNavbar extends Component {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item
-                                        onClick={() => this.handleLogout()}>
+                                        onClick={this.props.logout}>
                                         {' '}
                                         <i className="fa fa-power-off"></i>{' '}
                                         Logout
@@ -294,7 +287,7 @@ class CustomNavbar extends Component {
                         </>
                     )}
                 </Navbar.Collapse>
-                {this.state.isTrue ? <DropdownMenuComp /> : null}
+                {this.props.isAuthenticated ? <DropdownMenuComp /> : null}
             </Navbar>
             // </Container>
 
@@ -305,4 +298,10 @@ class CustomNavbar extends Component {
     }
 }
 
-export default CustomNavbar;
+const mapStateToProps = state => ({
+    account: state.account
+  }); 
+  
+  
+  export default connect(mapStateToProps, {logout})(CustomNavbar)
+  

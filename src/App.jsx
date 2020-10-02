@@ -41,11 +41,7 @@ function App() {
     if (localStorage.user_data) {
         setAuthToken(localStorage.user_data);
     }
-
-    useEffect(() => {
-        store.dispatch(loadUser());
-    }, []);
-
+    loadUser()
     return (
         <div>
             {/* <CustomNavbar /> */}

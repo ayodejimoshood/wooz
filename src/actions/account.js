@@ -32,82 +32,83 @@ const scalableBaseUrl = 'https://scalable-commerce-backend.herokuapp.com'
 
 // Load Current User
 export const loadUser = () => async dispatch => {
-  if (localStorage.token) {
-      setAuthToken(localStorage.token);
-  }
-
-  try {  
-    let data = localStorage.getItem("user_data")
-
+  
+  axios.get('/auth/v1/users/0')
+    .then(res => {
       dispatch({
-          type: USER_LOADED,
-          payload: data
-      });
-  } catch (err) {
-      dispatch({
-          type: AUTH_ERROR
-      });
-  }
+        type: USER_LOADED,
+        payload: res.data
+      })
+    }).catch(error => {
+      return error.response && error.response.data.message
+        ? toast.error(error.response.data.message)
+        : toast.error(error.message);
+    })
 };
 
 
+
 //  LOGIN USER
-export const login = (email, password, history) => async (dispatch) => {
-  try {
+export const login = (email,password) => (dispatch) => {
+  
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  // Request body
+  const body = JSON.stringify({ email,password });
+
+
+  axios.post('/auth/v1/signin',body, config)
+    .then(res => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      })
+    }).catch(error => {
+      return error.response && error.response.data.message
+        ? toast.error(error.response.data.message)
+        : toast.error(error.message);
+    })
+}
+
+
+
+
+
+
+export const registerUser = (firstName, lastName, accountType, email, phone, password) =>  (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     }
-    const { data } = await axios.post(
-      '/auth/signin',
-      { email, password },
+
+    const body = JSON.stringify({ firstName, lastName, accountType, email, phone, password })
+
+    axios.post(
+      '/auth/v1/signup',
+      body,
       config
     )
-
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data,
+    .then(res => {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      })
+    }).catch(error => {
+      return error.response && error.response.data.message
+        ? toast.error(error.response.data.message)
+        : toast.error(error.message);
     })
-
-    reactLocalStorage.setObject('user_data', data.user)
-    console.log(reactLocalStorage.setObject('user_data', data.user))
-    history.push('/');
-  } catch (error) {
-
-    return error.response && error.response.data.message
-          ? toast.error(error.response.data.message)
-          : toast.error(error.message)
-  }
 }
 
-export const registerUser = (firstName, lastName, accountType, email, phone, password) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-    const { data } = await axios.post(
-      '/auth/signup',
-      { firstName, lastName, accountType, email, phone, password },
-      config
-    )
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: data,
-    })
 
-    localStorage.setItem('userInfo', JSON.stringify(data))
-    
-  } catch (error) {
 
-    return error.response && error.response.data.message
-          ? toast.error(error.response.data.message)
-          : toast.error(error.message)
-  }
-}
 
 export const updateUser = (firstName, lastName, gender, dob, attributes) => async (dispatch) => {
   try {
@@ -345,31 +346,31 @@ export const getUsers = () => dispatch => {
 };
 
 // LOGOUT
-export const logout = (email, password, history) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+
+export const logout = () => (dispatch, getState) => {
+  
+  //  Get token from state
+  const token = getState().account.token;
+
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
     }
-    const { data } = await axios.post(
-      '/auth/signout',
-      { email, password },
-      config
-    )
-
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    reactLocalStorage.setObject('user_data', data.user)
-    console.log(reactLocalStorage.setObject('user_data', data.user))
-    history.push('/');
-  } catch (error) {
-
-    return error.response && error.response.data.message
-          ? toast.error(error.response.data.message)
-          : toast.error(error.message)
   }
+
+  // If token, add to headers config
+  if(token) {
+    config.headers['Authorization'] = `Token ${token}`;
+  }
+
+
+  axios.post('/auth/signout')
+    .then(res => {
+      dispatch({
+        type:LOGOUT_SUCCESS,
+      })
+    }).catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status ));
+    })
 }

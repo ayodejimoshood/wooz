@@ -19,8 +19,8 @@ import {
 } from '../actions/types'
 
 const initialState = {
-  // user_data: localStorage.getItem("user_data"),
-  isAuthenticated: null,
+  token: localStorage.getItem("token"),
+  isAuthenticated: false,
   isLoading: true,
   user:null,
 };
@@ -30,7 +30,8 @@ export default function(state = initialState,action){
     case USER_LOADING:
       return {
         ...state,
-        isLoading: false 
+        isAuthenticated: false,
+        isLoading: true 
       }
     case USER_LOADED:
       return {
@@ -41,7 +42,7 @@ export default function(state = initialState,action){
       }
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.setItem('user_data', action.payload.user_data);
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         ...action.payload,
@@ -52,7 +53,7 @@ export default function(state = initialState,action){
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      localStorage.removeItem('user_data',action.payload.user_data);
+      localStorage.removeItem('token');
       return {
         ...state,
         isLoading: false,

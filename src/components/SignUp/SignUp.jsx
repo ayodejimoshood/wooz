@@ -79,7 +79,7 @@ export class SignUp extends Component {
       }
 
       static propTypes = {
-        register: PropTypes.func.isRequired,
+        registerUser: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
       }
 
