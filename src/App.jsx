@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Component, Fragment } from 'react';
+import ReactDom from 'react-dom';
 import logo from './logo.svg';
 // import './App.css';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -31,17 +32,18 @@ import CustomNavbar from './components/CustomNavbar';
 // import { NavbarBrand } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import setAuthToken from './config/setAuthToken'
-import { loadUser } from './actions/account';
+// import setAuthToken from './config/setAuthToken'
+import { loadUser } from './actions/auth';
 
 import store from './store';
 
-function App() {
+class App extends Component {
 
-    if (localStorage.user_data) {
-        setAuthToken(localStorage.user_data);
-    }
-    loadUser()
+    componentDidMount() {
+		store.dispatch(loadUser());
+	}
+
+ render(){
     return (
         <div>
             {/* <CustomNavbar /> */}
@@ -49,6 +51,7 @@ function App() {
             <ToastContainer />
         </div>
     );
+ }
 }
 
 export default App;

@@ -1,8 +1,8 @@
-import React, { Component, useState, select, Switch } from 'react';
+import React, { Component } from 'react'
 import {Link,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
-import {registerUser} from '../../actions/account'
+import {register} from '../../actions/auth'
 import {createMessage} from '../../actions/messages'
 import {
     Button,
@@ -20,9 +20,9 @@ import {
     Col,
 } from 'reactstrap';
 import * as Formik from 'formik';
-import axios from '../../config/axios';
-import { reactLocalStorage } from 'reactjs-localstorage';
-import { useHistory } from 'react-router-dom';
+// import axios from '../../config/axios';
+// import { reactLocalStorage } from 'reactjs-localstorage';
+// import { useHistory } from 'react-router-dom';
 
 import * as Yup from 'yup';
 import FooterSection from '../FooterSection/FooterSection';
@@ -43,7 +43,7 @@ export class SignUp extends Component {
     state ={
         firstName: '',
         phone: '',
-        // accountType: '', 
+        accountType: '', 
         lastName: '',
         email: '',
         password: '',
@@ -55,7 +55,7 @@ export class SignUp extends Component {
         const {
             firstName,
             phone,
-            // accountType,
+            accountType,
             lastName,
             email,
             password,
@@ -73,13 +73,12 @@ export class SignUp extends Component {
             email,
             password,
           }
-          this.props.registerUser(newUser)
-          console.log(newUser, 'newUser')
+          this.props.register(newUser)
         }
       }
 
       static propTypes = {
-        registerUser: PropTypes.func.isRequired,
+        register: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
       }
 
@@ -290,9 +289,9 @@ export class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.account.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated
   }); 
   
   
-export default connect(mapStateToProps, { registerUser, createMessage})(SignUp)
+  export default connect(mapStateToProps, {register,createMessage})(SignUp)
   

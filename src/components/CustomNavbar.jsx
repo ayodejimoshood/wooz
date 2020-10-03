@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react'
+import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { logout } from '../actions/auth'
+
 import {
     Badge,
     Navbar,
@@ -14,7 +19,7 @@ import {
     FormControl,
     Image,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import Icon from '@material-ui/icons';
 // import { Icon } from '@material-ui/core';
 
@@ -26,32 +31,29 @@ import DropdownMenuComp from './DropdownMenu/DropdownMenu';
 // import MobileNavbarMenu from './DropdownMenu/MobileMenu'
 import './SideNav/SideNav.css';
 import SideNav from './SideNav/SideNav';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
-import { logout } from '../actions/account'
 
-import { reactLocalStorage } from 'reactjs-localstorage';
+// import { reactLocalStorage } from 'reactjs-localstorage';
 
-export class CustomNavbar extends Component {
-    
+const CustomNavbar = (props, isAuthenticated) => {
 
-
-    static propTypes = {
-        account: PropTypes.object.isRequired,
-        logout: PropTypes.func.isRequired
-      };
+    // static propTypes = {
+    //   auth: PropTypes.object.isRequired,
+    //   logout: PropTypes.func.isRequired
+    // };
+    const [display, setDisplay] = useState(false)
+    const userInfo = JSON.parse(localStorage.getItem("user"))
+    const [isTrue, setisTrue] = useState(false)
 
 
-    toggle() {
-        const { isAuthenticated } = this.state;
-        this.setState({ isAuthenticated: !isAuthenticated });
+    const toggle = ()  => {
+        setisTrue(!isTrue)
     }
 
-    render() {
 
+
+    // const { isAuthenticated,user } = props.auth;
 
         return (
-
             // <Container className='' style={{ maxWidth: '100%'}}>
             <Navbar
                 style={{ backgroundColor: 'white' }}
@@ -62,7 +64,7 @@ export class CustomNavbar extends Component {
                 {/* web dropdownmenu */}
                 <Nav.Link
                     className="d-none d-lg-block"
-                    onClick={() => this.toggle()}
+                    onClick={() => toggle()}
                     style={{
                         backgroundColor: '#043f7c',
                         borderRadius: '3px',
@@ -204,29 +206,13 @@ export class CustomNavbar extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Nav>
-                    <Nav href="#">
-                        {/* <i
+                    <Nav.Link href="#">
+                        <i
                             className="fa fa-shopping-cart fa-lg"
                             style={{ color: '#043f7c' }}></i>
-                        <Badge variant="danger">3</Badge> */}
-
-                    {/* <Button color="primary" type="button"> */}
-        {/* <span>Notifications</span> */}
-        <i
-                            className="fa fa-shopping-cart fa-lg"
-                            style={{ color: '#043f7c' }}>
-                                <Badge variant="danger"
-          className="badge-circle badge-floatingxx border-white fa-xs"
-        //   color="danger"
-        //   size="md"
-        >
-          4
-        </Badge>
-                            </i>
-        
-                    </Nav>
-                    
-                    {!this.state.isLoggedIn && (
+                        <Badge variant="danger">3</Badge>
+                    </Nav.Link>
+                    {!userInfo ? (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">
                                 <Button
@@ -249,12 +235,12 @@ export class CustomNavbar extends Component {
                                 </Button>{' '}
                             </Nav.Link>
                         </Nav>
-                    )}
+                    ) : ""}
 
-                    {this.props.isAuthenticated && (
+                    {userInfo ? (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
-                                Hello, {this.props.account.firstName};
+                            {userInfo ? `Hello ${userInfo.user.firstName}` : ''}
                             </Nav.Link>
                             <Dropdown alignRight>
                                 <Dropdown.Toggle
@@ -293,7 +279,7 @@ export class CustomNavbar extends Component {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item
-                                        onClick={this.props.logout}>
+                                        onClick={logout}>
                                         {' '}
                                         <i className="fa fa-power-off"></i>{' '}
                                         Logout
@@ -301,9 +287,9 @@ export class CustomNavbar extends Component {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </>
-                    )}
+                    ) : ""}
                 </Navbar.Collapse>
-                {this.props.isAuthenticated ? <DropdownMenuComp /> : null}
+                {isTrue ? <DropdownMenuComp /> : null}
             </Navbar>
             // </Container>
 
@@ -312,10 +298,10 @@ export class CustomNavbar extends Component {
             // </div>
         );
     }
-}
+
 
 const mapStateToProps = state => ({
-    account: state.account
+    auth: state.auth
   }); 
   
   
