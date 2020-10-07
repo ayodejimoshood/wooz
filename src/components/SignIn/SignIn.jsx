@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component, useState, select, Switch } from 'react';
+// import React, { Component, useState, select, Switch, useEffect } from 'react';
 // import {
 //     Jumbotron,
 //     Container,
@@ -30,14 +30,24 @@ import React, { Component, useState, select, Switch } from 'react';
 //     FormControl,
 //     FormCheck,
 // } from 'react-bootstrap';
-import axios from '../../config/axios';
+// import axios from '../../config/axios';
+
+
+
+import React, { Component ,useEffect,useState} from 'react'
+import {Link,Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types';
+import {login} from '../../actions/auth'
+
+
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 // import "../assets/scss/argon-dashboard-react.scss";
 // import '../../assets/css/argon-dashboard-react.css'
 
-import { reactLocalStorage } from 'reactjs-localstorage';
+// import { reactLocalStorage } from 'reactjs-localstorage';
 
 // reactstrap components
 import {
@@ -61,29 +71,45 @@ import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
 
-const SignIn = () => {
-    const [email, setEmail] = useState('emekaosuagwu@hotmail.com');
-    const [password, setPassword] = useState('password');
+ const Login = ({isAuthenticated, login}) => {
+const history = useHistory()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    
+    
+    
+    
+    //     useEffect(() => {
 
-    let history = useHistory();
-    const handleSignin = async () => {
-        const request_data = {
+    //         if (isAuthenticated) {
+    //           return <Redirect to='/' />;
+    //         }
+    //   },[isAuthenticated]);
+  
+      
+  
+    
+    
+   const   onSubmit = e => {
+        e.preventDefault();
+       
+        const newUser = {
             email,
             password,
-        };
-        await axios
-            .post('/auth/signin', request_data)
-            .then((response) => {
-                reactLocalStorage.setObject('user_data', response.data.user);
-                history.push('/');
-            })
-            .catch((error) => {
-                alert('invalid email or password');
-                console.log(error, 'error');
-            });
-    };
+        }
+          login(newUser, history)
+          console.log(newUser, 'newUser')
+      }
 
-    // render() {
+    //   static propTypes = {
+    //     login: PropTypes.func.isRequired,
+    //     isAuthenticated: PropTypes.bool
+    //   }
+    
+    
+    
+    
+
     return (
         <div
             style={{
@@ -128,7 +154,7 @@ const SignIn = () => {
                                     Sign in with credentials
                                 </small>
                             </div>
-                            <Form role="form">
+                            <Form role="form" onSubmit={onSubmit}>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -139,11 +165,12 @@ const SignIn = () => {
                                         <Input
                                         // defaultValue={email}
                                             placeholder="Email"
-                                            onChange={(event) =>
-                                                setEmail(event.target.value)
+                                            onChange={(e) => setEmail(e.target.value)
                                             }
                                             type="email"
-                                            autoComplete="new-email"
+                                            name="email"
+                                            value={email}
+                                            required
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -157,11 +184,12 @@ const SignIn = () => {
                                         <Input
                                         // defaultValue={password}
                                             placeholder="Password"
-                                            onChange={(event) =>
-                                                setPassword(event.target.value)
+                                            onChange={(e) => setPassword(e.target.value)
                                             }
                                             type="password"
-                                            autoComplete="new-password"
+                                            name="password"
+                                            value={password}
+                                            required
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -172,10 +200,9 @@ const SignIn = () => {
                                             backgroundColor: '#ff5757',
                                             width: '100%',
                                         }}
-                                        onClick={handleSignin}
                                         className="my-4"
                                         color="danger"
-                                        type="button">
+                                        type="submit">
                                         Sign in
                                     </Button>
                                 </div>
@@ -211,19 +238,12 @@ const SignIn = () => {
             <FooterSection />
         </div>
     );
-    // }
-};
+    }
 
-export default SignIn;
-
-// import React from 'react';
-
-// const SignIn = () => {
-//     return (
-//         <div>
-
-//         </div>
-//     );
-// }
-
-// export default SignIn;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+  }); 
+  
+  
+  export default connect(mapStateToProps, {login})(Login)
+  

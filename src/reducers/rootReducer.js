@@ -1,9 +1,12 @@
 
 import { combineReducers}from 'redux';
 
-import account from './account'
+import auth from './auth'
+import messages from './messages'
+
 
 
 export default combineReducers({
-  account,
+  auth,
+  messages
 });

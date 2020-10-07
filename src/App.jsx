@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
+import ReactDom from 'react-dom';
 import logo from './logo.svg';
 // import './App.css';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -29,16 +30,28 @@ import CustomNavbar from './components/CustomNavbar';
 // import SignUp from './components/SignUp/SignUp';
 // import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 // import { NavbarBrand } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import setAuthToken from './config/setAuthToken'
+import { loadUser } from './actions/auth';
 
+import store from './store';
 
+class App extends Component {
 
-function App() {
+    componentDidMount() {
+		store.dispatch(loadUser());
+	}
+
+ render(){
     return (
         <div>
             {/* <CustomNavbar /> */}
             <Router />
+            <ToastContainer />
         </div>
     );
+ }
 }
 
 export default App;
