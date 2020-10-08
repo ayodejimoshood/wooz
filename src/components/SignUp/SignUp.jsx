@@ -1,5 +1,9 @@
-import React, { Component, useState, select, Switch } from 'react';
-
+import React, { Component } from 'react'
+import {Link,Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types';
+import {register} from '../../actions/auth'
+import {createMessage} from '../../actions/messages'
 import {
     Button,
     Row,
@@ -16,39 +20,39 @@ import {
     Col,
 } from 'reactstrap';
 import * as Formik from 'formik';
-import axios from '../../config/axios';
-import { reactLocalStorage } from 'reactjs-localstorage';
-import { useHistory } from 'react-router-dom';
+// import axios from '../../config/axios';
+// import { reactLocalStorage } from 'reactjs-localstorage';
+// import { useHistory } from 'react-router-dom';
 
 import * as Yup from 'yup';
 import FooterSection from '../FooterSection/FooterSection';
 
 const SignupSchema = Yup.object().shape({});
 
-function SignUp() {
-    const [validated, setValidated] = useState(false);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [accountType, setAccountType] = useState('staff');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [attributes, setAttributes] = useState({ company: 'Google' });
+export class SignUp extends Component {
+    // const [validated, setValidated] = useState(false);
+    // const [firstName, setFirstName] = useState('');
+    // const [lastName, setLastName] = useState('');
+    // const [accountType, setAccountType] = useState('staff');
+    // const [email, setEmail] = useState('');
+    // const [phone, setPhone] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [confirmPassword, setConfirmPassword] = useState('');
+    // const [attributes, setAttributes] = useState({ company: 'Google' });
 
-    let history = useHistory();
+    state ={
+        firstName: '',
+        phone: '',
+        accountType: '', 
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      }
     
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    };
-
-    const handleSignup = async () => {
-        const request_data = {
+      onSubmit = e => {
+        e.preventDefault();
+        const {
             firstName,
             phone,
             accountType,
@@ -56,19 +60,46 @@ function SignUp() {
             email,
             password,
             confirmPassword,
-            attributes,
-        };
+        } = this.state;
 
-        await axios
-            .post('/auth/signup', request_data)
-            .then((response) => {
-                console.log(response);
-                history.push('/signin');
-            })
-            .catch((error) => {
-                console.log(error, 'error');
-            });
-    };
+        if(password !== confirmPassword ) {
+          alert('Password do not match')
+        }else {
+          const newUser = {
+            firstName,
+            phone,
+            accountType: 'customer',
+            lastName,
+            email,
+            password,
+          }
+          this.props.register(newUser)
+        }
+      }
+
+      static propTypes = {
+        register: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool
+      }
+
+      onChange = e => this.setState({ 
+        [e.target.name]: e.target.value
+        
+      })
+
+    
+    render (){
+
+        const {
+            firstName,
+            phone,
+            accountType,
+            lastName,
+            email,
+            password,
+            confirmPassword,
+            attributes
+        } = this.state;
 
     return (
         <div style={{ backgroundColorx: '#043f7c', backgroundSize: 'cover' }}>
@@ -98,7 +129,7 @@ function SignUp() {
                                     Sign up with credentials
                                 </small>
                             </div>
-                            <Form role="form">
+                            <Form role="form" onSubmit={this.onSubmit}>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -107,10 +138,9 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            defaultValue={firstName}
-                                            onChange={(event) =>
-                                                setFirstName(event.target.value)
-                                            }
+                                            name="firstName"
+                                            onChange={this.onChange}
+                                            value={firstName}
                                             required
                                             placeholder="Firstname"
                                             type="text"
@@ -126,10 +156,10 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            defaultValue={lastName}
-                                            onChange={(event) =>
-                                                setLastName(event.target.value)
-                                            }
+                                            name="lastName"
+                                            onChange={this.onChange}
+                                            value={lastName}
+                                            
                                             required
                                             placeholder="Lastname"
                                             type="text"
@@ -145,10 +175,10 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            defaultValue={email}
-                                            onChange={(event) =>
-                                                setEmail(event.target.value)
-                                            }
+                                            name="email"
+                                            onChange={this.onChange}
+                                            value={email}
+                                        
                                             required
                                             placeholder="Email"
                                             type="email"
@@ -164,14 +194,14 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            onChange={(event) =>
-                                                setPhone(event.target.value)
-                                            }
-                                            defaultValue={password}
+                                            name="phone"
+                                            onChange={this.onChange}
+                                            value={phone}
+                                            
                                             required
                                             placeholder="Phone"
                                             type="phone"
-                                            autoComplete="new-password"
+                                            autoComplete="phone"
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -183,10 +213,9 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            defaultValue={password}
-                                            onChange={(event) =>
-                                                setPassword(event.target.value)
-                                            }
+                                            name="password"
+                                            onChange={this.onChange}
+                                            value={password}
                                             required
                                             placeholder="Password"
                                             type="password"
@@ -202,12 +231,9 @@ function SignUp() {
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                            defaultValue={password}
-                                            onChange={(event) =>
-                                                setConfirmPassword(
-                                                    event.target.value,
-                                                )
-                                            }
+                                            name="confirmPassword"
+                                            onChange={this.onChange}
+                                            value={confirmPassword}
                                             required
                                             placeholder="Confirm Password"
                                             type="password"
@@ -223,7 +249,7 @@ function SignUp() {
                                             width: '100%',
                                         }}
                                         // onClick={this.handleLogin}
-                                        onClick={handleSignup}
+                                        type="submit"
                                         className="my-4"
                                         color="danger"
                                         >
@@ -260,5 +286,12 @@ function SignUp() {
         </div>
     );
 }
+}
 
-export default SignUp;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+  }); 
+  
+  
+  export default connect(mapStateToProps, {register,createMessage})(SignUp)
+  

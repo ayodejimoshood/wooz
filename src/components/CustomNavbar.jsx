@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react'
+import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { logout } from '../actions/auth'
+
 import {
     Badge,
     Navbar,
@@ -14,7 +19,7 @@ import {
     FormControl,
     Image,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import Icon from '@material-ui/icons';
 // import { Icon } from '@material-ui/core';
 
@@ -27,38 +32,27 @@ import DropdownMenuComp from './DropdownMenu/DropdownMenu';
 import './SideNav/SideNav.css';
 import SideNav from './SideNav/SideNav';
 
-import { reactLocalStorage } from 'reactjs-localstorage';
+// import { reactLocalStorage } from 'reactjs-localstorage';
 
-class CustomNavbar extends Component {
-    constructor() {
-        super();
-        this.state = {
-            isTrue: false,
-            isLoggedIn: false,
-            auth: {},
-        };
+const CustomNavbar = (props, isAuthenticated) => {
+
+    // static propTypes = {
+    //   auth: PropTypes.object.isRequired,
+    //   logout: PropTypes.func.isRequired
+    // };
+    const [display, setDisplay] = useState(false)
+    const userInfo = JSON.parse(localStorage.getItem("user"))
+    const [isTrue, setisTrue] = useState(false)
+
+
+    const toggle = ()  => {
+        setisTrue(!isTrue)
     }
 
-    componentDidMount() {
-        console.log('called');
-        const auth = reactLocalStorage.getObject('user_data');
-        console.log(auth, 'fkvdjfvkdjfvkdfj');
-        if (Object.keys(auth).length != 0) {
-            this.setState({ isLoggedIn: true, auth });
-        }
-    }
 
-    toggle() {
-        const { isTrue } = this.state;
-        this.setState({ isTrue: !isTrue });
-    }
 
-    handleLogout() {
-        reactLocalStorage.setObject('user_data', {});
-        this.setState({ isLoggedIn: false });
-    }
+    // const { isAuthenticated,user } = props.auth;
 
-    render() {
         return (
             // <Container className='' style={{ maxWidth: '100%'}}>
             <Navbar
@@ -70,7 +64,7 @@ class CustomNavbar extends Component {
                 {/* web dropdownmenu */}
                 <Nav.Link
                     className="d-none d-lg-block"
-                    onClick={() => this.toggle()}
+                    onClick={() => toggle()}
                     style={{
                         backgroundColor: '#043f7c',
                         borderRadius: '3px',
@@ -212,29 +206,21 @@ class CustomNavbar extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Nav>
-                    <Nav href="#">
-                        {/* <i
+                    <Nav.Link href="#">
+                        <i
                             className="fa fa-shopping-cart fa-lg"
                             style={{ color: '#043f7c' }}></i>
-                        <Badge variant="danger">3</Badge> */}
+                        <Badge variant="danger">3</Badge>
 
                         {/* <Button color="primary" type="button"> */}
                         {/* <span>Notifications</span> */}
-                        <i
-                            className="fa fa-shopping-cart fa-lg"
-                            style={{ color: '#043f7c' }}>
-                            <Badge
-                                variant="danger"
-                                className="badge-circle badge-floatingxx border-white fa-xs"
-                                //   color="danger"
-                                //   size="md"
-                            >
-                                4
-                            </Badge>
-                        </i>
-                    </Nav>
+                        
+                    
 
-                    {!this.state.isLoggedIn && (
+                    {/* {!this.state.isLoggedIn && ( */}
+                        
+                    </Nav.Link>
+                    {!userInfo ? (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">
                                 <Button
@@ -257,12 +243,12 @@ class CustomNavbar extends Component {
                                 </Button>{' '}
                             </Nav.Link>
                         </Nav>
-                    )}
+                    ) : ""}
 
-                    {this.state.isLoggedIn && (
+                    {userInfo ? (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
-                                Hello, {this.state.auth.firstName};
+                            {userInfo ? `Hello ${userInfo.user.firstName}` : ''}
                             </Nav.Link>
                             <Dropdown alignRight>
                                 <Dropdown.Toggle
@@ -301,7 +287,7 @@ class CustomNavbar extends Component {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item
-                                        onClick={() => this.handleLogout()}>
+                                        onClick={logout}>
                                         {' '}
                                         <i className="fa fa-power-off"></i>{' '}
                                         Logout
@@ -309,9 +295,9 @@ class CustomNavbar extends Component {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </>
-                    )}
+                    ) : ""}
                 </Navbar.Collapse>
-                {this.state.isTrue ? <DropdownMenuComp /> : null}
+                {isTrue ? <DropdownMenuComp /> : null}
             </Navbar>
             // </Container>
 
@@ -320,6 +306,12 @@ class CustomNavbar extends Component {
             // </div>
         );
     }
-}
 
-export default CustomNavbar;
+
+const mapStateToProps = state => ({
+    auth: state.auth
+  }); 
+  
+  
+  export default connect(mapStateToProps, {logout})(CustomNavbar)
+  
