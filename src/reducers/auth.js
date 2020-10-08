@@ -45,6 +45,7 @@ export default function(state = initialState,action){
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
       localStorage.removeItem('user');
+      localStorage.removeItem('testing');
       return {
         ...state,
         isLoading:false,

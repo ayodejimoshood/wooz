@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import {Provider} from 'react-redux'
+import ReduxToastr from 'react-redux-toastr'
 import store from '../store'
 
 import PrivateRoute from '../components/Common/PrivateRoute';
@@ -46,6 +47,16 @@ import Verification from '../components/Verification/Verification';
 export default function RouterComponent() {
     return (
         <Provider store={store}>
+        <ReduxToastr
+      timeOut={4000}
+      newestOnTop={false}
+      preventDuplicates
+      position="top-right"
+      getState={(state) => state.toastr} // This is the default
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+      progressBar
+      closeOnToastrClick/>
         <Router>
             <Switch>
                 <AuthLayout path="/signin" component={SignIn} />

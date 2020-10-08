@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react'
 import {Link} from 'react-router-dom'
+import {toastr} from 'react-redux-toastr'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { logout } from '../actions/auth'
+import { logout, logOut } from '../actions/auth'
 
 import {
     Badge,
@@ -34,14 +35,25 @@ import SideNav from './SideNav/SideNav';
 
 // import { reactLocalStorage } from 'reactjs-localstorage';
 
+
+
 const CustomNavbar = (props, isAuthenticated) => {
+
+  const handleSignOut = () => {
+    props.logoutUser();
+    toastr.success('Sign out Successful', '', {
+      timeOut: 5000,
+      showCloseButton: true, 
+    })
+  }
+  
 
     // static propTypes = {
     //   auth: PropTypes.object.isRequired,
     //   logout: PropTypes.func.isRequired
     // };
     const [display, setDisplay] = useState(false)
-    const userInfo = JSON.parse(localStorage.getItem("user"))
+    const userInfo = JSON.parse(localStorage.getItem("testing"))
     const [isTrue, setisTrue] = useState(false)
 
 
@@ -279,7 +291,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item
-                                        onClick={logout}>
+                                        onClick={handleSignOut}>
                                         {' '}
                                         <i className="fa fa-power-off"></i>{' '}
                                         Logout
@@ -303,7 +315,11 @@ const CustomNavbar = (props, isAuthenticated) => {
 const mapStateToProps = state => ({
     auth: state.auth
   }); 
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logOut())
+})
   
   
-  export default connect(mapStateToProps, {logout})(CustomNavbar)
+  export default connect(mapStateToProps, mapDispatchToProps)(CustomNavbar)
   

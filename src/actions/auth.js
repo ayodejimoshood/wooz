@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import {returnErrors} from './messages'
+import {toastr} from 'react-redux-toastr'
 
 import {
   USER_LOADED,
@@ -53,7 +54,10 @@ export const loadUser = () => (dispatch, getState) => {
 }
 
 
-
+const toastrOptions = {
+  timeOut: 5000, 
+  showCloseButton: true, 
+}
 
 
 //  LOGIN USER
@@ -83,26 +87,28 @@ export const login = (payload, history) =>  (dispatch) => {
       "Content-Type": "application/json; charset=utf-8"
     },
     credentials: "same-origin"
-  }).then( async function(response) {
-    
-    console.log(response.statusText)
-    // console.log(response.statusText())
-    console.log(response.status,  response.headers,
-      response.url)
-      const val = await response.json()
-      dispatch({
-                type: LOGIN_SUCCESS,
-                payload: val
-              })
-              localStorage.setItem("user", JSON.stringify(val))
-    console.log(val)
+  }).then(response => response.json())
+  .then(data => {
+    const string = JSON.stringify(data)
+    localStorage.setItem("test", 'name')
+    localStorage.setItem("testing", string)
+    toastr.success('Login Success', '', toastrOptions)
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: data
+    })
     history.push("/")
-    return response
   }).catch(function(error) {
+    toastr.error(error.message)
     console.log(error.message)
 
   })
  
+  
+  
+  
+  
+  
 // try {
 //   const {data} = await axios.post(`https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin`,{ email,password }, config)
 //   console.log(data)
@@ -132,7 +138,7 @@ export const login = (payload, history) =>  (dispatch) => {
 }
 
 //  REGISTER USER
-export const register = ({ firstName,phone,accountType,lastName,email,password }) => (dispatch) => {
+export const register = ({ firstName,phone,accountType,lastName,email,password }, history) => (dispatch) => {
   
   // Headers
   const config = {
@@ -151,9 +157,12 @@ export const register = ({ firstName,phone,accountType,lastName,email,password }
         type: REGISTER_SUCCESS,
         payload: res.data
       })
-      console.log(res.data)
+      history.push('/signin')
+      toastr.success('Registration Success', '', toastrOptions)
     }).catch(err => {
-      dispatch(returnErrors(err.response.data, err.response.status ));
+      console.log(err)
+      toastr.error(err.message)
+      dispatch(returnErrors(err.message, 400 ));
       dispatch({
         type: REGISTER_FAIL
       })
@@ -169,8 +178,17 @@ export const register = ({ firstName,phone,accountType,lastName,email,password }
 
 // LOGOUT
 
-export const logout = () => (dispatch, getState) => {
+export const logout = () => (dispatch) => {
+  console.log('here')
   dispatch({
     type: LOGOUT_SUCCESS
   })
+}
+
+
+export const logOut = () => {
+  
+  return {
+    type: LOGOUT_SUCCESS
+  }
 }
