@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 // import '../node_modules/font-awesome/css/font-awesome.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 
 // import ReactBootstrapCarousel from "react-bootstrap-carousel";
