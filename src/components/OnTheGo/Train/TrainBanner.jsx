@@ -128,7 +128,7 @@ function TrainBanner() {
                             <br />
                             <br />
                             <br />
-                            <br/>
+                            <br />
                         </Col>
                     </Row>
                 </Col>

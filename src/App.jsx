@@ -4,6 +4,7 @@ import logo from './logo.svg';
 // import './App.css';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Router from './config/route';
+// import AdminRouter from './config/admin/routes'
 // import Home from './components/Home/Home';
 // import Insurance from './components/Insurance/Insurance';
 // import MotorInsurance from './components/Insurance/MotorInsurance/MotorInsurance';
@@ -48,6 +49,7 @@ class App extends Component {
         <div>
             {/* <CustomNavbar /> */}
             <Router />
+            {/* <AdminRouter /> */}
             <ToastContainer />
         </div>
     );
