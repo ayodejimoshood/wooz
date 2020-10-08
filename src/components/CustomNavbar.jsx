@@ -218,22 +218,22 @@ class CustomNavbar extends Component {
                             style={{ color: '#043f7c' }}></i>
                         <Badge variant="danger">3</Badge> */}
 
-                    {/* <Button color="primary" type="button"> */}
-        {/* <span>Notifications</span> */}
-        <i
+                        {/* <Button color="primary" type="button"> */}
+                        {/* <span>Notifications</span> */}
+                        <i
                             className="fa fa-shopping-cart fa-lg"
                             style={{ color: '#043f7c' }}>
-                                <Badge variant="danger"
-          className="badge-circle badge-floatingxx border-white fa-xs"
-        //   color="danger"
-        //   size="md"
-        >
-          4
-        </Badge>
-                            </i>
-        
+                            <Badge
+                                variant="danger"
+                                className="badge-circle badge-floatingxx border-white fa-xs"
+                                //   color="danger"
+                                //   size="md"
+                            >
+                                4
+                            </Badge>
+                        </i>
                     </Nav>
-                    
+
                     {!this.state.isLoggedIn && (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">

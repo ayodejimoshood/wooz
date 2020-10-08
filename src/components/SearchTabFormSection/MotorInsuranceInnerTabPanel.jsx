@@ -18,88 +18,87 @@ import TrainIcon from '@material-ui/icons/Train';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Col } from 'react-bootstrap';
-import MotorInsuranceTabContent from './MotorInsuranceTabContent'
-import Covid19Content from './Covid19Content'
-import PriceAlertContent from './PriceAlertContent'
+import MotorInsuranceTabContent from './MotorInsuranceTabContent';
+import Covid19Content from './Covid19Content';
+import PriceAlertContent from './PriceAlertContent';
 // import TicketMotorInsuranceTabContent from './TicketMotorInsuranceTabContent'
 // import Covid19Content from './Covid19Content'
 
 function MotorInsuranceInnerTabPanel(props) {
-  const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-prevent-tabpanel-${index}`}
-      aria-labelledby={`scrollable-prevent-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`scrollable-prevent-tabpanel-${index}`}
+            aria-labelledby={`scrollable-prevent-tab-${index}`}
+            {...other}>
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
 }
 
 MotorInsuranceInnerTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
-  return {
-    id: `scrollable-prevent-tab-${index}`,
-    'aria-controls': `scrollable-prevent-tabpanel-${index}`,
-  };
+    return {
+        id: `scrollable-prevent-tab-${index}`,
+        'aria-controls': `scrollable-prevent-tabpanel-${index}`,
+    };
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    // backgroundColor: theme.palette.background.paper,
-  },
+    root: {
+        flexGrow: 1,
+        width: '100%',
+        // backgroundColor: theme.palette.background.paper,
+    },
 }));
 
 export default function ScrollableTabsButtonPrevent() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
-  return (
-    <div className={classes.root}>
-      <MotorInsuranceInnerTabPanel value={value} index={0}>
-        <Covid19Content />
-        <br/>
-        <MotorInsuranceTabContent />
-        {/* <br/>
+    return (
+        <div className={classes.root}>
+            <MotorInsuranceInnerTabPanel value={value} index={0}>
+                <Covid19Content />
+                <br />
+                <MotorInsuranceTabContent />
+                {/* <br/>
         <MotorInsuranceTabContent />
         <br/>
         <MotorInsuranceTabContent />
         <br/>
         <MotorInsuranceTabContent /> */}
-        <br/>
-        <PriceAlertContent />
-      </MotorInsuranceInnerTabPanel>
-      <MotorInsuranceInnerTabPanel value={value} index={1}>
-        {/* <Covid19Content />
+                <br />
+                <PriceAlertContent />
+            </MotorInsuranceInnerTabPanel>
+            <MotorInsuranceInnerTabPanel value={value} index={1}>
+                {/* <Covid19Content />
         <br/>
         <TicketMotorInsuranceTabContent /> */}
-      </MotorInsuranceInnerTabPanel>
-      <MotorInsuranceInnerTabPanel value={value} index={2}>
-        Item Three
-      </MotorInsuranceInnerTabPanel>
-      <MotorInsuranceInnerTabPanel value={value} index={3}>
-        Item Four
-      </MotorInsuranceInnerTabPanel>
-      {/* <MotorInsuranceInnerTabPanel value={value} index={4}>
+            </MotorInsuranceInnerTabPanel>
+            <MotorInsuranceInnerTabPanel value={value} index={2}>
+                Item Three
+            </MotorInsuranceInnerTabPanel>
+            <MotorInsuranceInnerTabPanel value={value} index={3}>
+                Item Four
+            </MotorInsuranceInnerTabPanel>
+            {/* <MotorInsuranceInnerTabPanel value={value} index={4}>
         Item Five
       </MotorInsuranceInnerTabPanel>
       <MotorInsuranceInnerTabPanel value={value} index={5}>
@@ -108,6 +107,6 @@ export default function ScrollableTabsButtonPrevent() {
       <MotorInsuranceInnerTabPanel value={value} index={6}>
         Item Seven
       </MotorInsuranceInnerTabPanel> */}
-    </div>
-  );
+        </div>
+    );
 }
