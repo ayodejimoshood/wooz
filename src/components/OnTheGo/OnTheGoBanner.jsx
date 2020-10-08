@@ -86,7 +86,7 @@ function OnTheGoBanner() {
                 </Nav>
                 <Col lg={12}>
                     <Row>
-                    <Col md={9}>
+                        <Col md={9}>
                             <br />
                             <br />
                             <br />
@@ -129,7 +129,6 @@ function OnTheGoBanner() {
                             <br />
                             <br />
                             <br />
-                            
                         </Col>
                     </Row>
                 </Col>

@@ -21,7 +21,7 @@ import DealsSection from '../DealsSection/DealsSections';
 import OnTheGoTab from '../OnTheGoTab/OnTheGoTabs';
 
 import bannerimage from '../../assets/video/onthego.gif';
-import busbannerimage from '../../assets/video/bus.gif'
+import busbannerimage from '../../assets/video/bus.gif';
 import ferriesbannerimage from '../../assets/video/ferries.gif';
 import trainbannerimage from '../../assets/video/train.gif';
 import cruisebannerimage from '../../assets/video/cruiseship.gif';
@@ -68,7 +68,6 @@ function OnTheGo() {
         ) {
             setBrowser(true);
         }
-
     }, []);
     //end kiosk header render lifecycle
 
@@ -119,7 +118,6 @@ function OnTheGo() {
             icon: 'djcdfvd',
             backgroundImage: shippingbannerimage,
         },
-        
     ];
 
     const [activeTab, setActiveTab] = useState(tabs[0]);

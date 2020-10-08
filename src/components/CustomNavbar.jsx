@@ -223,6 +223,14 @@ const CustomNavbar = (props, isAuthenticated) => {
                             className="fa fa-shopping-cart fa-lg"
                             style={{ color: '#043f7c' }}></i>
                         <Badge variant="danger">3</Badge>
+
+                        {/* <Button color="primary" type="button"> */}
+                        {/* <span>Notifications</span> */}
+                        
+                    
+
+                    {/* {!this.state.isLoggedIn && ( */}
+                        
                     </Nav.Link>
                     {!userInfo ? (
                         <Nav>

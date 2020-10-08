@@ -4,9 +4,9 @@
 * Argon Dashboard React - v1.1.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
+* Product Page: https://www.creative-tim.com/product/woozeee-admin-dashboard
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+* Licensed under MIT (https://github.com/creativetimofficial/woozeee-admin-dashboard/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 
@@ -44,8 +44,8 @@ import {login} from '../../actions/auth'
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
-// import "../assets/scss/argon-dashboard-react.scss";
-// import '../../assets/css/argon-dashboard-react.css'
+// import "../assets/scss/woozeee-admin-dashboard.scss";
+// import '../../assets/css/woozeee-admin-dashboard.css'
 
 // import { reactLocalStorage } from 'reactjs-localstorage';
 
@@ -163,7 +163,7 @@ const history = useHistory()
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                        // defaultValue={email}
+                                            // defaultValue={email}
                                             placeholder="Email"
                                             onChange={(e) => setEmail(e.target.value)
                                             }
@@ -182,7 +182,7 @@ const history = useHistory()
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
-                                        // defaultValue={password}
+                                            // defaultValue={password}
                                             placeholder="Password"
                                             onChange={(e) => setPassword(e.target.value)
                                             }
