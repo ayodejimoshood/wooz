@@ -92,7 +92,7 @@ export const login = (payload, history) =>  (dispatch) => {
     const string = JSON.stringify(data)
     localStorage.setItem("test", 'name')
     localStorage.setItem("testing", string)
-    toastr.success('Login Success', '', toastrOptions)
+    toastr.success('', 'Login Success', toastrOptions)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
@@ -158,7 +158,7 @@ export const register = ({ firstName,phone,accountType,lastName,email,password }
         payload: res.data
       })
       history.push('/signin')
-      toastr.success('Registration Success', '', toastrOptions)
+      toastr.success('', 'Registration Success', toastrOptions)
     }).catch(err => {
       console.log(err)
       toastr.error(err.message)
