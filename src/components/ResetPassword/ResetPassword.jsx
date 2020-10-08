@@ -38,6 +38,8 @@ import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../../assets/css/argon-dashboard-react.css'
 
 import { reactLocalStorage } from 'reactjs-localstorage';
+import {toastr} from 'react-redux-toastr'
+
 
 // reactstrap components
 import {
@@ -64,7 +66,7 @@ import FooterSection from '../FooterSection/FooterSection';
 const ResetPassword = () => {
 
 
-    const [activeUI, setActiveUI] = useState('update_password');
+    const [activeUI, setActiveUI] = useState('reset_password');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -83,9 +85,13 @@ const ResetPassword = () => {
                 verificationCode,
             };
 
-                axios.put('/auth/reset-password', request_data)
+                axios.put('https://scalable-commerce-backend.herokuapp.com/api/v1/auth/reset-password', request_data)
                 .then((response) => {
                     history.push('/signin');
+                    toastr.success('', 'Password successfully updated', {
+                      timeOut: 5000,
+                      showCloseButton: true, 
+                    })
                 })
                 .catch((error) => {
                     alert('invalid verification code');
@@ -108,7 +114,7 @@ const ResetPassword = () => {
 
             console.log(request_data, "sending")
             await axios
-                .put('/auth/verify', request_data)
+                .put('https://scalable-commerce-backend.herokuapp.com/api/v1/auth/verify', request_data)
                 .then((response) => {
                     setActiveUI('update_password')
                 })
