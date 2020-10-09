@@ -61,7 +61,7 @@ const toastrOptions = {
 
 
 //  LOGIN USER
-export const login = (payload, history, authMethod) =>  (dispatch) => {
+export const login = (payload, history) =>  (dispatch) => {
   
   // Headers
   const config = {
@@ -78,6 +78,10 @@ export const login = (payload, history, authMethod) =>  (dispatch) => {
     credentials: "same-origin"
   }).then(response => response.json())
   .then(data => {
+    if (data.message === 'User Not found') {
+      toastr.error('invalid username or password', toastrOptions);
+      return
+    }
     const {email} = payload
     data['email'] = email
     const string = JSON.stringify(data)
