@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {toastr} from 'react-redux-toastr'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
@@ -38,8 +38,10 @@ import SideNav from './SideNav/SideNav';
 
 
 const CustomNavbar = (props, isAuthenticated) => {
+  const history = useHistory()
 
   const handleSignOut = () => {
+    history.push('/')
     props.logoutUser();
     toastr.success('Sign out Successful', '', {
       timeOut: 5000,
