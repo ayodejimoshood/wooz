@@ -118,10 +118,10 @@ const history = useHistory()
                             <div className="btn-wrapper text-center">
                             <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={e => e.preventDefault()} >
                                 <span className="btn-inner--icon">
-                                    <img alt="..." src={require("../../assets/img/icons/github.svg")}
+                                    <img alt="..." src={require("../../assets/img/icons/instagram.svg")}
                                 />
                                 </span>
-                                <span className="btn-inner--text">Github</span>
+                                <span className="btn-inner--text">Instagram</span>
                             </Button>
                     <Button
                   className="btn-neutral btn-icon"
