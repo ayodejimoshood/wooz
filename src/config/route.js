@@ -34,6 +34,7 @@ import Ferries from '../components/OnTheGo/Ferries/Ferries';
 import Train from '../components/OnTheGo/Train/Train';
 import FlightSearch from '../components/FlightSearch/FlightSearch';
 import FlightSearch2 from '../components/FlightSearch/FlightSearch2';
+import InsuranceFlightSearch from '../components/FlightSearch/InsuranceFlightSearch';
 import Utilities from '../components/Utilities/Utilities';
 import UtilitiesThumbnailSection from '../components/UtilitiesThumbnailSection/UtilitiesThumbnailSection';
 import Airtime from '../components/Utilities/Airtime/Airtime';
@@ -101,6 +102,11 @@ export default function RouterComponent() {
                     exact
                     path="/onthego/flightsearch2"
                     component={FlightSearch2}
+                />
+                <AuthLayout
+                    exact
+                    path="/onthego/flightsearch/insurance"
+                    component={InsuranceFlightSearch}
                 />
                 <AuthLayout exact path="/utilities" component={Utilities} />
                 <AuthLayout
