@@ -1,39 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/woozeee-admin-dashboard
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/woozeee-admin-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-// import React, { Component, useState, select, Switch, useEffect } from 'react';
-// import {
-//     Jumbotron,
-//     Container,
-//     Row,
-//     Col,
-//     Image,
-//     Button,
-//     ButtonGroup,
-//     Card,
-//     InputGroup,
-//     Form,
-//     FormControl,
-//     FormCheck,
-// } from 'react-bootstrap';
-// import axios from '../../config/axios';
-
-
-
 import React, { Component ,useEffect,useState} from 'react'
 import {Link,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -131,20 +95,17 @@ const history = useHistory()
                     maxWidth: '100%',
                 }}>
                 <Col lg="4" md="7">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <Card className="bg-light shadow border-0">
-                        {/* <CardHeader className="bg-transparent pb-5">
-                                <div className="btn-wrapper text-center">
-                                    <br />
-                                    <a href="/">
-                                        <img
-                                            width="200px"
-                                            alt="..."
-                                            src={require('../../assets/img/woozeee.png')}
-                                        />
-                                    </a>
-                                </div>
-                            </CardHeader> */}
-                        <CardBody className="px-lg-5 py-lg-5">
+                        <CardHeader className="bg-transparent pb-5">
                             <div className="text-center text-muted mb-4">
                                 <small
                                     style={{
@@ -154,6 +115,40 @@ const history = useHistory()
                                     Sign in with credentials
                                 </small>
                             </div>
+                            <div className="btn-wrapper text-center">
+                            <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={e => e.preventDefault()} >
+                                <span className="btn-inner--icon">
+                                    <img alt="..." src={require("../../assets/img/icons/github.svg")}
+                                />
+                                </span>
+                                <span className="btn-inner--text">Github</span>
+                            </Button>
+                    <Button
+                  className="btn-neutral btn-icon"
+                  color="default"
+                  href="#pablo"
+                  onClick={e => e.preventDefault()}
+                >
+                  <span className="btn-inner--icon">
+                    <img
+                      alt="..."
+                      src={require("../../assets/img/icons/google.svg")}
+                    />
+                  </span>
+                  <span className="btn-inner--text">Google</span>
+                </Button>
+              </div>
+                            </CardHeader>
+                        <CardBody className="px-lg-5 py-lg-5">
+                            {/* <div className="text-center text-muted mb-4">
+                                <small
+                                    style={{
+                                        color: '#000000',
+                                        fontSize: '15px',
+                                    }}>
+                                    Sign in with credentials
+                                </small>
+                            </div> */}
                             <Form role="form" onSubmit={onSubmit}>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
@@ -235,6 +230,15 @@ const history = useHistory()
                     </Row>
                 </Col>
             </Container>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <FooterSection />
         </div>
     );
