@@ -61,25 +61,11 @@ const toastrOptions = {
 
 
 //  LOGIN USER
-export const login = (payload, history) =>  (dispatch) => {
+export const login = (payload, history, authMethod) =>  (dispatch) => {
   
-  // Headers
-  const config = {
-    headers : {"Content-Type": "application/json; charset=utf-8"}
-  }
+  if (authMethod === )
 
 
-  // axios.post('https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin',  { email,password },{ 
-  //   headers : {"Content-Type": "application/json; charset=utf-8"}
-  //  }.then(response => {
-  //      console.log(response);
-  //  }).catch(error => {
-  //      console.log(error);
-  //  })
-  // )
-
-  // Request body
-  // const body = { email,password }
   fetch("https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin", {
     method: "POST",
     body: JSON.stringify(payload),
@@ -89,51 +75,22 @@ export const login = (payload, history) =>  (dispatch) => {
     credentials: "same-origin"
   }).then(response => response.json())
   .then(data => {
+    const {email} = payload
+    data['email'] = email
     const string = JSON.stringify(data)
-    localStorage.setItem("test", 'name')
     localStorage.setItem("testing", string)
     toastr.success('', 'Login Success', toastrOptions)
+    
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
     })
     history.push("/")
   }).catch(function(error) {
-    toastr.error(error.message)
-    console.log(error.message)
+    toastr.error(error.message, toastrOptions)
+    console.log(error)
 
   })
- 
-  
-  
-  
-  
-  
-// try {
-//   const {data} = await axios.post(`https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin`,{ email,password }, config)
-//   console.log(data)
-//   dispatch({
-//     type: LOGIN_SUCCESS,
-//     payload: data
-//   })
-// } catch (error) {
-//   console.log(error.response.data)
-// }
-
-
-// console.log(body)
-//   axios.post(`${base}/auth/signin`,body)
-//     .then(res => {
-//       dispatch({
-//         type: LOGIN_SUCCESS,
-//         payload: res.data
-//       })
-//     }).catch(err => {
-//       dispatch(returnErrors(err.response.data, err.response.status ));
-//       dispatch({
-//         type: LOGIN_FAIL
-//       })
-//     })
 
 }
 
@@ -160,7 +117,7 @@ export const register = ({ firstName,phone,accountType,lastName,email,password }
       history.push('/signin')
       toastr.success('', 'Registration Success', toastrOptions)
     }).catch(err => {
-      console.log(err)
+      console.log(err.message)
       toastr.error(err.message)
       dispatch(returnErrors(err.message, 400 ));
       dispatch({
@@ -178,16 +135,8 @@ export const register = ({ firstName,phone,accountType,lastName,email,password }
 
 // LOGOUT
 
-export const logout = () => (dispatch) => {
-  console.log('here')
-  dispatch({
-    type: LOGOUT_SUCCESS
-  })
-}
-
 
 export const logOut = () => {
-  
   return {
     type: LOGOUT_SUCCESS
   }

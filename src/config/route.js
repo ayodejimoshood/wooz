@@ -10,7 +10,9 @@ import {
 
 import {Provider} from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
-import store from '../store'
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '../store.js'
+
 
 import PrivateRoute from '../components/Common/PrivateRoute';
 import AuthLayout from '../components/Common/AuthLayout';
@@ -49,6 +51,7 @@ import Verification from '../components/Verification/Verification';
 export default function RouterComponent() {
     return (
         <Provider store={store}>
+        <PersistGate persistor={persistor}>
         <ReduxToastr
       timeOut={4000}
       newestOnTop={false}
@@ -125,6 +128,7 @@ export default function RouterComponent() {
                 <AuthLayout path="/nomatch" component={NoMatch} />
             </Switch>
         </Router>
-        </Provider >
+        </PersistGate>
+        </Provider>
     );
 }

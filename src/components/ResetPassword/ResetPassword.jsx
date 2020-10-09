@@ -70,11 +70,16 @@ const ResetPassword = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [verificationCode, setVerificationCode] = useState('');
 
     let history = useHistory();
 
     const handleUpdatePassword = async () => {
+      if (password !== confirmPassword) {
+        alert('passwords do not match')
+        return;
+      }
         if (
             verificationCode == '' ||
             verificationCode == undefined ||
@@ -203,7 +208,7 @@ const ResetPassword = () => {
                                 <Col xs="6">
                                     <a
                                         className="text-light"
-                                        href="/forgotpassword"
+                                        href="/resetpassword"
                                         // onClick={(e) => e.preventDefault()}
                                     >
                                         <small style={{ color: '#043f7c' }}>
@@ -316,6 +321,27 @@ const ResetPassword = () => {
                                                 />
                                             </InputGroup>
                                         </FormGroup>
+                                        <FormGroup className="mb-3">
+                                            <InputGroup className="input-group-alternative">
+                                                {/* <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>
+                                                <i className="ni ni-email-83" />
+                                            </InputGroupText>
+                                        </InputGroupAddon> */}
+                                                <Input
+                                                    defaultValue={password}
+                                                    placeholder="confirm password"
+                                                    onChange={(event) =>
+                                                        setConfirmPassword(
+                                                            event.target.value,
+                                                        )
+                                                    }
+                                                    value={confirmPassword}
+                                                    type="password"
+                                                    autoComplete="new-email"
+                                                />
+                                            </InputGroup>
+                                        </FormGroup>
 
                                         {/* <hr className="text-center" style={{width: '100%', margin: '0 auto'}} /> */}
                                         <div className="text-center">
@@ -338,8 +364,7 @@ const ResetPassword = () => {
                                 <Col xs="6">
                                     <a
                                         className="text-light"
-                                        href="/forgotpassword"
-                                        // onClick={(e) => e.preventDefault()}
+                                        href="/resetpassword"
                                     >
                                         <small style={{ color: '#043f7c' }}>
                                             Forgot password?
@@ -350,7 +375,6 @@ const ResetPassword = () => {
                                     <a
                                         className="text-light"
                                         href="/signup"
-                                        // onClick={(e) => e.preventDefault()}
                                     >
                                         <small style={{ color: '#043f7c' }}>
                                             Create new account

@@ -34,15 +34,15 @@ import CustomNavbar from './components/CustomNavbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import setAuthToken from './config/setAuthToken'
-import { loadUser } from './actions/auth';
+// import { loadUser } from './actions/auth';
 
-import store from './store';
+// import store from './store';
 
 class App extends Component {
 
-    componentDidMount() {
-		store.dispatch(loadUser());
-	}
+  //   componentDidMount() {
+	// 	store.dispatch(loadUser());
+	// }
 
  render(){
     return (
