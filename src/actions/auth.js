@@ -63,7 +63,10 @@ const toastrOptions = {
 //  LOGIN USER
 export const login = (payload, history, authMethod) =>  (dispatch) => {
   
-  if (authMethod === )
+  // Headers
+  const config = {
+    headers : {"Content-Type": "application/json; charset=utf-8"}
+  }
 
 
   fetch("https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin", {

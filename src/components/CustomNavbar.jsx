@@ -41,7 +41,7 @@ const CustomNavbar = (props, isAuthenticated) => {
   const history = useHistory()
 
   const handleSignOut = () => {
-    history.pushState('/')
+    history.push('/')
     props.logoutUser();
     toastr.success('Sign out Successful', '', {
       timeOut: 5000,
