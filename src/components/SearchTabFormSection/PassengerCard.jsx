@@ -48,7 +48,7 @@ function PassengerCard() {
                         <br/>
                         <br/>
                         <Button variant="outline-danger">Skip</Button>{' '}
-                        <Button variant="danger">Proceed</Button>{' '}
+                        <Button variant="danger"> <a href="/onthego/flightsearch/insurance">Proceed</a> </Button>{' '}
                     </Col>
                     <Col sm={6} className='mb-4'>
                         <img width='350px' src={TravelInsuranceImg} alt=""/>

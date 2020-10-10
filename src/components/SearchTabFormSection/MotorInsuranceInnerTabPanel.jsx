@@ -78,12 +78,7 @@ export default function ScrollableTabsButtonPrevent() {
                 <Covid19Content />
                 <br />
                 <MotorInsuranceTabContent />
-                {/* <br/>
-        <MotorInsuranceTabContent />
-        <br/>
-        <MotorInsuranceTabContent />
-        <br/>
-        <MotorInsuranceTabContent /> */}
+                
                 <br />
                 <PriceAlertContent />
             </MotorInsuranceInnerTabPanel>
@@ -98,15 +93,7 @@ export default function ScrollableTabsButtonPrevent() {
             <MotorInsuranceInnerTabPanel value={value} index={3}>
                 Item Four
             </MotorInsuranceInnerTabPanel>
-            {/* <MotorInsuranceInnerTabPanel value={value} index={4}>
-        Item Five
-      </MotorInsuranceInnerTabPanel>
-      <MotorInsuranceInnerTabPanel value={value} index={5}>
-        Item Six
-      </MotorInsuranceInnerTabPanel>
-      <MotorInsuranceInnerTabPanel value={value} index={6}>
-        Item Seven
-      </MotorInsuranceInnerTabPanel> */}
+            
         </div>
     );
 }

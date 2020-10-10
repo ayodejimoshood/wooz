@@ -1,10 +1,8 @@
-import React, { Component ,useEffect,useState} from 'react'
-import {Link,Redirect} from 'react-router-dom'
-import {connect} from 'react-redux'
+import React, { Component, useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {login} from '../../actions/auth'
-
-
+import { login } from '../../actions/auth';
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
@@ -35,44 +33,33 @@ import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
 
- const Login = ({isAuthenticated, login}) => {
-const history = useHistory()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    
-    
-    
-    
+const Login = ({ isAuthenticated, login }) => {
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     //     useEffect(() => {
 
     //         if (isAuthenticated) {
     //           return <Redirect to='/' />;
     //         }
     //   },[isAuthenticated]);
-  
-      
-  
-    
-    
-   const   onSubmit = e => {
+
+    const onSubmit = (e) => {
         e.preventDefault();
-       
+
         const newUser = {
             email,
             password,
-        }
-          login(newUser, history)
-          console.log(newUser, 'newUser')
-      }
+        };
+        login(newUser, history);
+        console.log(newUser, 'newUser');
+    };
 
     //   static propTypes = {
     //     login: PropTypes.func.isRequired,
     //     isAuthenticated: PropTypes.bool
     //   }
-    
-    
-    
-    
 
     return (
         <div
@@ -95,60 +82,72 @@ const history = useHistory()
                     maxWidth: '100%',
                 }}>
                 <Col lg="4" md="7">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                     <Card className="bg-light shadow border-0">
                         <CardHeader className="bg-transparent pb-5">
+                            <br />
                             <div className="text-center text-muted mb-4">
                                 <small
                                     style={{
                                         color: '#000000',
                                         fontSize: '15px',
+                                        opacity: '0.6'
                                     }}>
-                                    Sign in with credentials
+                                    Sign in with
                                 </small>
                             </div>
                             <div className="btn-wrapper text-center">
-                            <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={e => e.preventDefault()} >
-                                <span className="btn-inner--icon">
-                                    <img alt="..." src={require("../../assets/img/icons/instagram.svg")}
-                                />
-                                </span>
-                                <span className="btn-inner--text">Instagram</span>
-                            </Button>
-                    <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("../../assets/img/icons/google.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Google</span>
-                </Button>
-              </div>
-                            </CardHeader>
+                                <Button
+                                    className="btn-neutral btn-icon"
+                                    color="default"
+                                    href="#pablo"
+                                    onClick={(e) => e.preventDefault()}>
+                                    <span className="btn-inner--icon">
+                                        <img
+                                            alt="..."
+                                            src={require('../../assets/img/icons/instagram.svg')}
+                                        />
+                                    </span>
+                                    <span className="btn-inner--text">
+                                        Instagram
+                                    </span>
+                                </Button>
+                                <Button
+                                    className="btn-neutral btn-icon"
+                                    color="default"
+                                    href="#pablo"
+                                    onClick={(e) => e.preventDefault()}>
+                                    <span className="btn-inner--icon">
+                                        <img
+                                            alt="..."
+                                            src={require('../../assets/img/icons/google.svg')}
+                                        />
+                                    </span>
+                                    <span className="btn-inner--text">
+                                        Google
+                                    </span>
+                                </Button>
+                            </div>
+                        </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
-                            {/* <div className="text-center text-muted mb-4">
+                            <div className="text-center text-muted mb-4">
                                 <small
                                     style={{
                                         color: '#000000',
                                         fontSize: '15px',
+                                        opacity: '0.6'
                                     }}>
-                                    Sign in with credentials
+                                    or sign in with credentials
                                 </small>
-                            </div> */}
+                            </div>
                             <Form role="form" onSubmit={onSubmit}>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
@@ -160,7 +159,8 @@ const history = useHistory()
                                         <Input
                                             // defaultValue={email}
                                             placeholder="Email"
-                                            onChange={(e) => setEmail(e.target.value)
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
                                             }
                                             type="email"
                                             name="email"
@@ -179,7 +179,8 @@ const history = useHistory()
                                         <Input
                                             // defaultValue={password}
                                             placeholder="Password"
-                                            onChange={(e) => setPassword(e.target.value)
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
                                             }
                                             type="password"
                                             name="password"
@@ -230,24 +231,22 @@ const history = useHistory()
                     </Row>
                 </Col>
             </Container>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <FooterSection />
         </div>
     );
-    }
+};
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-  }); 
-  
-  
-  export default connect(mapStateToProps, {login})(Login)
-  
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

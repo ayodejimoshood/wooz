@@ -6,7 +6,7 @@ import DatePicker from '../Calendar'
 // import Stepper from 'react-stepper-horizontal'
 
 import SelectTabForm from '../SearchTabFormSection/SelectTab'
-import MultiStepper from '../MultiStepper/MultiStepper'
+import MultiStepper from '../MultiStepper/InsuranceFlightSearchMultiStepper'
 
 class SearchTabFormSections extends Component {
     render() {

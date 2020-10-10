@@ -98,26 +98,27 @@ function OnTheGo() {
             backgroundImage: busbannerimage,
         },
         {
-            title: 'Ferries',
-            icon: 'djcdfvd',
-            backgroundImage: ferriesbannerimage,
-        },
-        
-        {
             title: 'Trains',
             icon: 'djcdfvd',
             backgroundImage: trainbannerimage,
         },
         {
+            title: 'Ferries',
+            icon: 'djcdfvd',
+            backgroundImage: ferriesbannerimage,
+        },
+        
+        
+        {
             title: 'Cruise',
             icon: 'djcdfvd',
             backgroundImage: cruisebannerimage,
         },
-        {
-            title: 'Shipping',
-            icon: 'djcdfvd',
-            backgroundImage: shippingbannerimage,
-        },
+        // {
+        //     title: 'Shipping',
+        //     icon: 'djcdfvd',
+        //     backgroundImage: shippingbannerimage,
+        // },
     ];
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
