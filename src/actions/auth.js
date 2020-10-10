@@ -55,7 +55,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 
 const toastrOptions = {
-  timeOut: 5000, 
+  timeOut: 6000, 
   showCloseButton: true, 
 }
 
@@ -78,7 +78,7 @@ export const login = (payload, history) =>  (dispatch) => {
     credentials: "same-origin"
   }).then(response => response.json())
   .then(data => {
-    if (data.message === 'User Not found') {
+    if (data.message !== 'User updated successfully') {
       toastr.error('invalid username or password', toastrOptions);
       return
     }
@@ -86,7 +86,7 @@ export const login = (payload, history) =>  (dispatch) => {
     data['email'] = email
     const string = JSON.stringify(data)
     localStorage.setItem("testing", string)
-    toastr.success('', 'Login Success', toastrOptions)
+    toastr.success('', `Logged in successfully`, toastrOptions)
     
     dispatch({
       type: LOGIN_SUCCESS,
