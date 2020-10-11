@@ -101,6 +101,40 @@ export const login = (payload, history) =>  (dispatch) => {
 
 }
 
+export const handleSignInWithSocials = (userObject, social) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  const body = JSON.stringify(userObject)
+  let baseUrl
+  if (social === 'google') {
+    baseUrl = `https://scalable-commerce-backend.herokuapp.com/api/v1/oauth/google`
+  } else if (social === 'facebook') {
+    baseUrl = `https://scalable-commerce-backend.herokuapp.com/api/v1/oauth/instagram`
+  }
+  try {
+    const response = await axios.post(baseUrl, body, config)
+    const { status } = response;
+    if (status === 200 || status === 201) {
+      const { data } = response;
+      const { email } = userObject
+      data['email'] = email;
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data
+      })
+      toastr.success('', `Logged in successfully`, toastrOptions)
+      return true;
+    }   
+  } catch (error) {
+    console.log(error)
+    toastr.error(error.message, toastrOptions)
+    return false;
+  } 
+}
+
 //  REGISTER USER
 export const register = ({ firstName,phone,accountType,lastName,email,password }, history) => (dispatch) => {
   

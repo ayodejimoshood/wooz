@@ -55,7 +55,7 @@ const CustomNavbar = (props, isAuthenticated) => {
     //   logout: PropTypes.func.isRequired
     // };
     const [display, setDisplay] = useState(false)
-    const userInfo = JSON.parse(localStorage.getItem("testing"))
+    const userInfo = props.auth.user
     const [isTrue, setisTrue] = useState(false)
 
 
@@ -262,7 +262,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                     {userInfo ? (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
-                            {userInfo ? `Hello ${userInfo.user.firstName}` : ''}
+                            {userInfo ? `Hello ${userInfo.firstName}` : ''}
                             </Nav.Link>
                             <Dropdown alignRight>
                                 <Dropdown.Toggle
@@ -322,9 +322,9 @@ const CustomNavbar = (props, isAuthenticated) => {
     }
 
 
-const mapStateToProps = state => ({
-    auth: state.auth
-  }); 
+const mapStateToProps = ({ auth }) => ({
+    auth
+}); 
 
 const mapDispatchToProps = (dispatch) => ({
   logoutUser: () => dispatch(logOut())
