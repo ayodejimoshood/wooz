@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
 import { handleSignInWithGoogle, login } from '../../actions/auth';
+import {toastr} from 'react-redux-toastr'
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
@@ -79,6 +80,12 @@ const Login = ({ isAuthenticated, login, signInWithGoogleCredentials }) => {
         if (res === true) {
           history.push('/');
         } 
+      })
+      return;
+    } else {
+      toastr.error('An error occured', {
+        timeOut: 6000, 
+        showCloseButton: true, 
       })
     }
   };
