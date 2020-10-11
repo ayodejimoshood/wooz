@@ -46,6 +46,9 @@ import AskDoc from '../components/AskDoc/AskDoc';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import Profile from '../components/Profile/Profile';
 import Verification from '../components/Verification/Verification';
+import Orders from '../components/Orders/Orders.jsx';
+import Favorites from '../components/Favorites/Favorites.jsx';
+import ChangePassword from '../components/ChangePassword/ChangePassword.jsx';
 
 
 
@@ -70,7 +73,10 @@ export default function RouterComponent() {
                 <AuthLayout path="/admin" component={AdminDashboard} />
                 <AuthLayout path="/resetpassword" component={ResetPassword} />
                 <AuthLayout path="/verification" component={Verification} />
-                <AuthLayout path="/profile" component={Profile} />
+                <AuthLayout path="/myaccount/profile" component={Profile} />
+                <AuthLayout path="/myaccount/orders" component={Orders} />
+                <AuthLayout path="/myaccount/favorites" component={Favorites} />
+                <AuthLayout path="/myaccount/changepassword" component={ChangePassword} />
 
                 <AuthLayout exact={true} path="/" component={Home} />
 

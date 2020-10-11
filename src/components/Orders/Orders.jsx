@@ -19,9 +19,9 @@ import FooterSection from '../FooterSection/FooterSection';
 // import UserHeader from "components/Headers/UserHeader.js";
 // import '../../assets/plugins/nucleo/css/nucleo.css';
 import img from '../../assets/img/avatar.jpg';
-import './Profile.css';
+import './Orders.css';
 
-class Profile extends Component {
+class Orders extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -94,11 +94,13 @@ class Profile extends Component {
                             <Card className="card-profile shadow">
                                 <CardBody className="pt-0 pt-md-4">
                                     <div className="text-left">
-                                        <div className="h6 font-weight-600">
-                                            <a href="/profile">My Profile</a>
+                                        <div className="h6 font-weight-300">
+                                            <a href="/myaccount/profile">
+                                                My Profile
+                                            </a>
                                         </div>
                                         <hr className="my-4" />
-                                        <div className="h6 font-weight-300">
+                                        <div className="h6 font-weight-600">
                                             <a href="/myaccount/orders">
                                                 My Orders
                                             </a>
@@ -142,12 +144,7 @@ class Profile extends Component {
                                 <CardHeader className="bg-secondary border-0">
                                     <Row className="align-items-center">
                                         <Col xs="12">
-                                            <h5 className="mb-0">My account</h5>
-                                            <span style={{ fontSize: '13px' }}>
-                                                Feel free to edit any of your
-                                                details below so your woozeee
-                                                account is totally up to date.
-                                            </span>
+                                            <h5 className="mb-0">My Orders</h5>
                                         </Col>
                                     </Row>
                                 </CardHeader>
@@ -157,82 +154,12 @@ class Profile extends Component {
                                             type="hidden"
                                             value="this is here to stop chrome from autocompleting the form"
                                         />
-                                        <h6 className="heading-small text-muted mb-4">
-                                            User information
-                                        </h6>
-                                        <div className="pl-lg-4">
+                                        <h6 className="heading-small text-center text-muted mb-4">
+                                            You currently have no orders
+                                            <br />
+                                            <br />
                                             <Row>
-                                                <Col lg="6">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-first-name">
-                                                            First name
-                                                        </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            id="input-first-name"
-                                                            placeholder="First name"
-                                                            type="text"
-                                                            value={firstName}
-                                                            name="firstName"
-                                                            onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
-                                                            }
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col lg="6">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-last-name">
-                                                            Last name
-                                                        </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            id="input-last-name"
-                                                            placeholder="Last name"
-                                                            type="text"
-                                                            value={lastName}
-                                                            name="lastName"
-                                                            onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
-                                                            }
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col lg="6">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-email">
-                                                            Email address
-                                                        </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            id="input-email"
-                                                            placeholder="amoshood@fczmedia.com"
-                                                            type="email"
-                                                            name="email"
-                                                            value={email}
-                                                            onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
-                                                            }
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col lg="4">
+                                                <Col lgx="4">
                                                     <Button
                                                         color="primary"
                                                         href="#ayo"
@@ -240,11 +167,11 @@ class Profile extends Component {
                                                         onClick={
                                                             this.handleSubmit
                                                         }>
-                                                        Save Changes
+                                                        Start Shopping
                                                     </Button>
                                                 </Col>
                                             </Row>
-                                        </div>
+                                        </h6>
                                     </Form>
                                 </CardBody>
                             </Card>
@@ -272,4 +199,4 @@ const mapStateToProps = ({ auth }) => {
     };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Orders);
