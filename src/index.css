@@ -34,3 +34,20 @@ a#noanim-tab-example-tab-trains {
   border-right: 1px solid;
   border-bottom: 1px solid
 }
+
+
+.redux-toastr .top-right {
+  top: 60px !important;
+}
+
+.redux-toastr .rrt-left-container {
+  display: none !important;
+}
+
+
+.redux-toastr .rrt-middle-container {
+  margin-left: 10px !important;
+  margin-top: 10px !important;
+  width: 80% !important;
+  font-size: 1rem !important;
+}
