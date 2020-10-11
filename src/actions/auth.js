@@ -101,15 +101,21 @@ export const login = (payload, history) =>  (dispatch) => {
 
 }
 
-export const handleSignInWithGoogle = (userObject) => async (dispatch) => {
+export const handleSignInWithSocials = (userObject, social) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   }
   const body = JSON.stringify(userObject)
+  let baseUrl
+  if (social === 'google') {
+    baseUrl = `https://scalable-commerce-backend.herokuapp.com/api/v1/oauth/google`
+  } else if (social === 'facebook') {
+    baseUrl = `https://scalable-commerce-backend.herokuapp.com/api/v1/oauth/instagram`
+  }
   try {
-    const response = await axios.post(`https://scalable-commerce-backend.herokuapp.com/api/v1/oauth/google`, body, config)
+    const response = await axios.post(baseUrl, body, config)
     const { status } = response;
     if (status === 200 || status === 201) {
       const { data } = response;

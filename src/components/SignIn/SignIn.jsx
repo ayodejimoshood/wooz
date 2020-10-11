@@ -2,9 +2,10 @@ import React, { Component, useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
+import { FacebookProvider, Login as LoginCustom } from 'react-facebook'
 import PropTypes from 'prop-types';
-import { handleSignInWithGoogle, login } from '../../actions/auth';
-import {toastr} from 'react-redux-toastr'
+import { handleSignInWithSocials, login } from '../../actions/auth';
+import { toastr } from 'react-redux-toastr'
 
 import '../../assets/plugins/nucleo/css/nucleo.css';
 // import '../ForgotPassword/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
@@ -35,7 +36,7 @@ import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
 
-const Login = ({ isAuthenticated, login, signInWithGoogleCredentials }) => {
+const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,8 +66,7 @@ const Login = ({ isAuthenticated, login, signInWithGoogleCredentials }) => {
 
   const responseGoogle = (response) => {
     if (response.profileObj) {
-      const { profileObj: {email, familyName, givenName, googleId, imageUrl} } = response;
-      console.log(response.profileObj);
+      const { profileObj: { email, familyName, givenName, googleId, imageUrl } } = response;
       const userObject = {
         oAuthId: googleId,
         firstName: givenName,
@@ -76,23 +76,55 @@ const Login = ({ isAuthenticated, login, signInWithGoogleCredentials }) => {
         phone: null,
         accountType: 'customer'
       }
-      signInWithGoogleCredentials(userObject).then(res => {
+      signInWithSocialsCredentials(userObject, 'google').then(res => {
         if (res === true) {
           history.push('/');
-        } 
+        }
       })
       return;
     } else {
-      toastr.error('An error occured', {
-        timeOut: 6000, 
-        showCloseButton: true, 
+      console.log(response)
+      toastr.error(`An error occured with google, ${response}`, {
+        timeOut: 6000,
+        showCloseButton: true,
       })
     }
   };
 
+  const handleFacebookResponse = (response) => {
+    if (response.profile) {
+      const { profile: { email, first_name, id, last_name, picture: { data: { url } } } } = response;
+      const userObject = {
+        oAuthId: id,
+        firstName: first_name,
+        lastName: last_name,
+        email,
+        imageUrl: url,
+        phone: null,
+        accountType: 'customer'
+      }
+
+      signInWithSocialsCredentials(userObject, 'facebook').then(res => {
+        if (res === true) {
+          history.push('/');
+        }
+      })
+    }
+  }
+
+  const handleFacebookError = (response) => {
+    toastr.error(`An error occured with facebook, ${response}`, {
+      timeOut: 6000,
+      showCloseButton: true,
+    })
+  }
+
   if (isAuthenticated) {
     return <Redirect to='/' />
   }
+
+
+
 
   return (
     <div
@@ -137,28 +169,37 @@ const Login = ({ isAuthenticated, login, signInWithGoogleCredentials }) => {
                 </small>
               </div>
               <div className="btn-wrapper text-center">
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}>
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require('../../assets/img/icons/instagram.svg')}
-                    />
+
+                <FacebookProvider appId="642788952951796">
+                  <LoginCustom
+                    scope="email"
+                    onCompleted={handleFacebookResponse}
+                    onError={handleFacebookError}
+                  >
+                    {({ loading, handleClick, error, data }) => (
+                      <Button
+                        className="btn-neutral btn-icon"
+                        color="default"
+                        onClick={handleClick}>
+                        <span className="btn-inner--icon">
+                          <img
+                            alt="..."
+                            src={require('../../assets/img/icons/instagram.svg')}
+                          />
+                        </span>
+                        <span className="btn-inner--text">
+                          Instagram
                   </span>
-                  <span className="btn-inner--text">
-                    Instagram
-                  </span>
-                </Button>
+                      </Button>
+                    )}
+                  </LoginCustom>
+                </FacebookProvider>
                 <GoogleLogin
                   clientId="1062482767572-eqhvrdf71e04nivvnk62s3a6lsvp4a72.apps.googleusercontent.com"
                   render={(renderProps) => (
                     <Button
                       className="btn-neutral btn-icon"
                       color="default"
-                      href="#pablo"
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}>
                       <span className="btn-inner--icon">
@@ -292,8 +333,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signInWithGoogleCredentials: (userObject) => dispatch(handleSignInWithGoogle(userObject)),
-  login: (newUser, history) => dispatch(login(newUser, history)) 
+  signInWithSocialsCredentials: (userObject, social) => dispatch(handleSignInWithSocials(userObject, social)),
+  login: (newUser, history) => dispatch(login(newUser, history))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
