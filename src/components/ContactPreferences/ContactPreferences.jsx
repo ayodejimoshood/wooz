@@ -167,9 +167,7 @@ class ContactPreferences extends Component {
                                                 Contact Preferences
                                             </h5>
                                             <span style={{ fontSize: '13px' }}>
-                                                Feel free to edit any of your
-                                                details below so your woozeee
-                                                account is totally up to date.
+                                            Hey {firstName}, the law has changed so we can't send you the updates below until you confirm you want to receive them. Confirm your preferences to hear from us again.
                                             </span>
                                         </Col>
                                     </Row>
