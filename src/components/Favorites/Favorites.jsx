@@ -95,38 +95,65 @@ class Favorites extends Component {
                                 <CardBody className="pt-0 pt-md-4">
                                     <div className="text-left">
                                         <div className="h6 font-weight-300">
-                                            <a href="/myaccount/profile">My Profile</a>
+                                            <a href="/myaccount/profile">
+                                                My Profile
+                                            </a>{' '}
+                                            <i
+                                                style={{ float: 'right' }}
+                                                class="fa fa-user"></i>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-300">
-                                            <a href="/myaccount/orders">My Orders</a>
+                                            <a href="/myaccount/orders">
+                                                My Orders{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-shopping-cart"></i>
+                                            </a>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-600">
-                                            <a href="/myaccount/favorites">My Saved/Favorite Items</a>
+                                            <a href="/myaccount/favorites">
+                                                My Saved/Favorite Items{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-heart"></i>
+                                            </a>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-300">
                                             <a href="/myaccount/changepassword">
-                                                Change Password
+                                                Change Password{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-lock"></i>
                                             </a>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-300">
                                             <a href="/myaccount/paymentmethods">
-                                                Payment Methods
+                                                Payment Methods{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-credit-card"></i>
                                             </a>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-300">
                                             <a href="/myaccount/contactpreferences">
-                                                Contact Preferences
+                                                Contact Preferences{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-address-card"></i>
                                             </a>
                                         </div>
                                         <hr className="my-4" />
                                         <div className="h6 font-weight-300">
-                                            <a href="/myaccount/socialaccount">
-                                                Social Accounts
+                                            <a href="/myaccount/socialaccountss">
+                                                Social Accounts{' '}
+                                                <i
+                                                    style={{ float: 'right' }}
+                                                    class="fa fa-share-alt-square"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -138,7 +165,9 @@ class Favorites extends Component {
                                 <CardHeader className="bg-secondary border-0">
                                     <Row className="align-items-center">
                                         <Col xs="12">
-                                            <h5 className="mb-0">My Favorites</h5>
+                                            <h5 className="mb-0">
+                                                My Favorites
+                                            </h5>
                                         </Col>
                                     </Row>
                                 </CardHeader>

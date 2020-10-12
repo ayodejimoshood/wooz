@@ -188,7 +188,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
                           />
                         </span>
                         <span className="btn-inner--text">
-                          Instagram
+                          Facebook
                   </span>
                       </Button>
                     )}

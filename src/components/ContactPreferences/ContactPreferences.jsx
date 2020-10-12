@@ -19,9 +19,9 @@ import FooterSection from '../FooterSection/FooterSection';
 // import UserHeader from "components/Headers/UserHeader.js";
 // import '../../assets/plugins/nucleo/css/nucleo.css';
 import img from '../../assets/img/avatar.jpg';
-import './Profile.css';
+import './ContactPreferences.css';
 
-class Profile extends Component {
+class ContactPreferences extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -94,7 +94,7 @@ class Profile extends Component {
                             <Card className="card-profile shadow">
                                 <CardBody className="pt-0 pt-md-4">
                                     <div className="text-left">
-                                        <div className="h6 font-weight-600">
+                                        <div className="h6 font-weight-300">
                                             <a href="/profile">My Profile</a>{' '}
                                             <i
                                                 style={{ float: 'right' }}
@@ -137,7 +137,7 @@ class Profile extends Component {
                                             </a>
                                         </div>
                                         <hr className="my-4" />
-                                        <div className="h6 font-weight-300">
+                                        <div className="h6 font-weight-600">
                                             <a href="/myaccount/contactpreferences">
                                                 Contact Preferences{' '}
                                                 <i
@@ -163,7 +163,9 @@ class Profile extends Component {
                                 <CardHeader className="bg-secondary border-0">
                                     <Row className="align-items-center">
                                         <Col xs="12">
-                                            <h5 className="mb-0">My account</h5>
+                                            <h5 className="mb-0">
+                                                Contact Preferences
+                                            </h5>
                                             <span style={{ fontSize: '13px' }}>
                                                 Feel free to edit any of your
                                                 details below so your woozeee
@@ -293,4 +295,4 @@ const mapStateToProps = ({ auth }) => {
     };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(ContactPreferences);
