@@ -95,7 +95,7 @@ class ContactPreferences extends Component {
                                 <CardBody className="pt-0 pt-md-4">
                                     <div className="text-left">
                                         <div className="h6 font-weight-300">
-                                            <a href="/profile">My Profile</a>{' '}
+                                            <a href="/myaccount/profile">My Profile</a>{' '}
                                             <i
                                                 style={{ float: 'right' }}
                                                 class="fa fa-user"></i>

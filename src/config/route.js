@@ -16,11 +16,7 @@ import { store, persistor } from '../store.js';
 import PrivateRoute from '../components/Common/PrivateRoute';
 import AuthLayout from '../components/Common/AuthLayout';
 
-// import DashboardComponent from './components/DashboardComponent';
-
 import Home from '../components/Home/Home';
-// import Icons from "../admin/views/examples/Icons";
-import AdminDashboard from '../admin/views/Index';
 import SignIn from '../components/SignIn/SignIn';
 import SignUp from '../components/SignUp/SignUp';
 import Insurance from '../components/Insurance/Insurance';
@@ -71,7 +67,6 @@ export default function RouterComponent() {
                     <Switch>
                         <AuthLayout path="/signin" component={SignIn} />
                         <AuthLayout path="/signup" component={SignUp} />
-                        <AuthLayout path="/admin" component={AdminDashboard} />
                         <AuthLayout
                             path="/resetpassword"
                             component={ResetPassword}
@@ -105,7 +100,7 @@ export default function RouterComponent() {
                             component={ContactPreferences}
                         />
                         <AuthLayout
-                            path="/myaccount/socialaccountss"
+                            path="/myaccount/socialaccounts"
                             component={SocialAccounts}
                         />
 
