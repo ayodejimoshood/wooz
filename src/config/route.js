@@ -49,6 +49,7 @@ import Verification from '../components/Verification/Verification';
 import Orders from '../components/Orders/Orders.jsx';
 import Favorites from '../components/Favorites/Favorites.jsx';
 import ChangePassword from '../components/ChangePassword/ChangePassword.jsx';
+import PaymentMethods from '../components/PaymentMethods/PaymentMethods.jsx';
 
 
 
@@ -77,6 +78,7 @@ export default function RouterComponent() {
                 <AuthLayout path="/myaccount/orders" component={Orders} />
                 <AuthLayout path="/myaccount/favorites" component={Favorites} />
                 <AuthLayout path="/myaccount/changepassword" component={ChangePassword} />
+                <AuthLayout path="/myaccount/paymentmethods" component={PaymentMethods} />
 
                 <AuthLayout exact={true} path="/" component={Home} />
 

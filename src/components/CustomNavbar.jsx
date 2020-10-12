@@ -275,7 +275,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                                     />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="profile">
+                                    <Dropdown.Item href="myaccount/profile">
                                         {' '}
                                         <i className="fa fa-user"></i> Profile
                                     </Dropdown.Item>
