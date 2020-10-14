@@ -2,19 +2,20 @@
 import {
   USER_LOADED,
   USER_LOADING,
-  AUTH_ERROR,
+  UPDATE_USER_INFO,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  UPDATE_NAME
 } from '../actions/types'
 
 const initialState = {
   token: null,
   isAuthenticated:null,
   isLoading:false,
-  user:null
+  user: {}
 };
 
 export default function(state = initialState,action){
@@ -52,6 +53,25 @@ export default function(state = initialState,action){
         isAuthenticated:false,
         token:null,
         user:null,
+      }
+    case UPDATE_USER_INFO:
+      return {
+        ...state,
+        email: action.payload.email,
+        user: {
+          ...state.user,
+          firstname: action.payload.firstName,
+          lastName: action.payload.lastName
+        }
+      }
+    case UPDATE_NAME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName
+        }
       }
     default:
       return state;

@@ -20,6 +20,7 @@ import FooterSection from '../FooterSection/FooterSection';
 // import '../../assets/plugins/nucleo/css/nucleo.css';
 import img from '../../assets/img/avatar.jpg';
 import './Profile.css';
+import { handleOnlyNameUpdate, handleProfileUpdate } from '../../actions/userProfile';
 
 class Profile extends Component {
     state = {
@@ -34,8 +35,16 @@ class Profile extends Component {
         country: '',
         postalCode: '',
     };
-    uploadedImage = React.createRef(null);
-    imageUploader = React.createRef(null);
+
+    componentDidMount() {
+      const { firstName, lastName, email} = this.props;
+      this.setState({
+        firstName,
+        lastName,
+        email
+      })
+    }
+
 
     handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,42 +53,32 @@ class Profile extends Component {
         });
     };
 
-    handleSubmit = () => {
-        console.log('clicked');
+    handleSubmit = (e) => {
+      e.preventDefault()
         const {
             firstName,
             lastName,
             email,
-            currentPassword,
-            newPassword,
-            confirmPassword,
-            address,
-            city,
-            country,
-            postalCode,
         } = this.state;
-
-        if (newPassword !== confirmPassword) {
-            alert('New Passwords do not match');
-            return;
+        if (this.props.email === email && this.props.firstName === firstName && this.props.lastName === lastName) {
+          console.log('all are the same')
+          return;
         }
+
+        if (this.props.email === email) {
+          console.log('updating name')
+          this.props.updateNameOnly({firstName, lastName})
+          return;
+        } 
+
+        this.props.updateUser({firstName, lastName, email})
+        
     };
 
-    handleImageUpload = (e) => {
-        const [file] = e.target.files;
-        if (file) {
-            const reader = new FileReader();
-            const { current } = this.uploadedImage;
-            current.file = file;
-            reader.onload = (e) => {
-                current.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+
 
     render() {
-        const { firstName, lastName, email } = this.props;
+        const { firstName, lastName, email } = this.state;
         return (
             <>
                 {/* <UserHeader /> */}
@@ -173,7 +172,7 @@ class Profile extends Component {
                                     </Row>
                                 </CardHeader>
                                 <CardBody>
-                                    <Form>
+                                    <Form onSubmit={this.handleSubmit}>
                                         <input
                                             type="hidden"
                                             value="this is here to stop chrome from autocompleting the form"
@@ -199,7 +198,7 @@ class Profile extends Component {
                                                             name="firstName"
                                                             onChange={(e) =>
                                                                 this.handleChange(
-                                                                    e,
+                                                                    e
                                                                 )
                                                             }
                                                         />
@@ -221,7 +220,7 @@ class Profile extends Component {
                                                             name="lastName"
                                                             onChange={(e) =>
                                                                 this.handleChange(
-                                                                    e,
+                                                                    e
                                                                 )
                                                             }
                                                         />
@@ -245,7 +244,7 @@ class Profile extends Component {
                                                             value={email}
                                                             onChange={(e) =>
                                                                 this.handleChange(
-                                                                    e,
+                                                                    e
                                                                 )
                                                             }
                                                         />
@@ -256,11 +255,10 @@ class Profile extends Component {
                                                 <Col lg="4">
                                                     <Button
                                                         color="primary"
-                                                        href="#ayo"
                                                         size="sm"
-                                                        onClick={
-                                                            this.handleSubmit
-                                                        }>
+                                                        type="submit"
+                                                        disabled={firstName === '' || lastName === '' || email === ''}
+                                                        >
                                                         Save Changes
                                                     </Button>
                                                 </Col>
@@ -281,16 +279,24 @@ class Profile extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  if (auth.user !== null) {
     const {
-        user: { firstName, lastName },
-        email,
-    } = auth;
+      user: { firstName, lastName },
+      email,
+  } = auth;
 
-    return {
-        firstName,
-        lastName,
-        email,
-    };
+  return {
+      firstName,
+      lastName,
+      email,
+  };
+  }
+   
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = (dispatch) => ({
+  updateNameOnly: (name) => dispatch(handleOnlyNameUpdate(name)),
+  updateUser: (userObject) => dispatch(handleProfileUpdate(userObject))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
