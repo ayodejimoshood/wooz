@@ -20,6 +20,7 @@ import FooterSection from '../FooterSection/FooterSection';
 // import '../../assets/plugins/nucleo/css/nucleo.css';
 import img from '../../assets/img/avatar.jpg';
 import './ChangePassword.css';
+import { handleUpdatePassword } from '../../actions/userProfile';
 
 class ChangePassword extends Component {
     state = {
@@ -28,6 +29,9 @@ class ChangePassword extends Component {
         newPassword: '',
         confirmPassword: '',
         
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
     };
     uploadedImage = React.createRef(null);
     imageUploader = React.createRef(null);
@@ -39,20 +43,36 @@ class ChangePassword extends Component {
         });
     };
 
-    handleSubmit = () => {
-        console.log('clicked');
+    handleSubmit = (e) => {
+      e.preventDefault();
+
         const {
             
             currentPassword,
             newPassword,
             confirmPassword,
             
+            oldPassword,
+            newPassword,
+            confirmPassword,
         } = this.state;
 
+        if (oldPassword === '' || newPassword === '') {
+          alert('please fill in all fields')
+          return;
+        }
         if (newPassword !== confirmPassword) {
             alert('New Passwords do not match');
             return;
         }
+        console.log("on my way now")
+        this.props.updatePassword({ oldPassword, newPassword }).then(res => {
+          this.setState({
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+          })
+        })
     };
 
     handleImageUpload = (e) => {
@@ -69,7 +89,7 @@ class ChangePassword extends Component {
     };
 
     render() {
-        const { firstName, lastName, email } = this.props;
+        const { oldPassword, newPassword, confirmPassword } = this.state;
         return (
             <>
                 {/* <UserHeader /> */}
@@ -164,6 +184,8 @@ class ChangePassword extends Component {
                                 <CardBody>
                                     <Form>
                                         {/* <input
+                                    <Form onSubmit={this.handleSubmit}>
+                                        <input
                                             type="hidden"
                                             value="this is here to stop chrome from autocompleting the form"
                                         /> */}
@@ -188,6 +210,14 @@ class ChangePassword extends Component {
                                                             
                                                             name=""
                                                             
+                                                            id="input-first-name"
+                                                            placeholder="password"
+                                                            type="text"
+                                                            value={oldPassword}
+                                                            name="oldPassword"
+                                                            onChange={(e) =>
+                                                                this.handleChange(e)
+                                                            }
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -203,12 +233,15 @@ class ChangePassword extends Component {
                                                             id="input-last-name"
                                                             placeholder="password"
                                                             type="password"
+<<<<<<< HEAD
                                                             value="{lastName}"
                                                             name="lastName"
+=======
+                                                            value={newPassword}
+                                                            name="newPassword"
+>>>>>>> d64c18cd67e28093ca8dcdc3521bce7c35f35010
                                                             onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
+                                                                this.handleChange(e)
                                                             }
                                                         />
                                                     </FormGroup>
@@ -227,12 +260,10 @@ class ChangePassword extends Component {
                                                             id="input-email"
                                                             placeholder="password"
                                                             type="password"
-                                                            name="lastName"
-                                                            value={lastName}
+                                                            name="confirmPassword"
+                                                            value={confirmPassword}
                                                             onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
+                                                                this.handleChange(e)
                                                             }
                                                         />
                                                     </FormGroup>
@@ -242,11 +273,8 @@ class ChangePassword extends Component {
                                                 <Col lg="4">
                                                     <Button
                                                         color="primary"
-                                                        href="#ayo"
                                                         size="sm"
-                                                        onClick={
-                                                            this.handleSubmit
-                                                        }>
+                                                        type="submit">
                                                         Save Changes
                                                     </Button>
                                                 </Col>
@@ -267,16 +295,24 @@ class ChangePassword extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  if (auth.user !== null) {
     const {
-        user: { firstName, lastName },
-        email,
-    } = auth;
+      user: { firstName, lastName },
+      email,
+  } = auth;
 
-    return {
-        firstName,
-        lastName,
-        email,
-    };
+  return {
+      firstName,
+      lastName,
+      email,
+  };
+  }
+    
 };
 
-export default connect(mapStateToProps)(ChangePassword);
+
+const mapDispatchToProps = (dispatch) => ({
+  updatePassword: (passwordObject) => dispatch(handleUpdatePassword(passwordObject))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
