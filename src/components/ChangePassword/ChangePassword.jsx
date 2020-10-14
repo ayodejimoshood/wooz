@@ -23,16 +23,11 @@ import './ChangePassword.css';
 
 class ChangePassword extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
+        
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
-        address: '',
-        city: '',
-        country: '',
-        postalCode: '',
+        
     };
     uploadedImage = React.createRef(null);
     imageUploader = React.createRef(null);
@@ -47,16 +42,11 @@ class ChangePassword extends Component {
     handleSubmit = () => {
         console.log('clicked');
         const {
-            firstName,
-            lastName,
-            email,
+            
             currentPassword,
             newPassword,
             confirmPassword,
-            address,
-            city,
-            country,
-            postalCode,
+            
         } = this.state;
 
         if (newPassword !== confirmPassword) {
@@ -173,10 +163,10 @@ class ChangePassword extends Component {
                                 </CardHeader>
                                 <CardBody>
                                     <Form>
-                                        <input
+                                        {/* <input
                                             type="hidden"
                                             value="this is here to stop chrome from autocompleting the form"
-                                        />
+                                        /> */}
                                         <h6 className="heading-small text-muted mb-4">
                                             Feel free to update your password so
                                             your woozeee account stays secure.
@@ -192,16 +182,12 @@ class ChangePassword extends Component {
                                                         </label>
                                                         <Input
                                                             className="form-control-alternative"
-                                                            id="input-first-name"
-                                                            placeholder="password"
-                                                            type="password"
-                                                            value={firstName}
-                                                            name="firstName"
-                                                            onChange={(e) =>
-                                                                this.handleChange(
-                                                                    e,
-                                                                )
-                                                            }
+                                                            // id="input-first-name"
+                                                            
+                                                            type="password" defaultValue=""
+                                                            
+                                                            name=""
+                                                            
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -217,7 +203,7 @@ class ChangePassword extends Component {
                                                             id="input-last-name"
                                                             placeholder="password"
                                                             type="password"
-                                                            value={lastName}
+                                                            value="{lastName}"
                                                             name="lastName"
                                                             onChange={(e) =>
                                                                 this.handleChange(
