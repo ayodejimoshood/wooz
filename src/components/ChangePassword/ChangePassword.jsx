@@ -27,6 +27,7 @@ class ChangePassword extends Component {
         oldPassword: '',
         newPassword: '',
         confirmPassword: '',
+        isMakingRequest: false
     };
     uploadedImage = React.createRef(null);
     imageUploader = React.createRef(null);
@@ -55,12 +56,15 @@ class ChangePassword extends Component {
             alert('New Passwords do not match');
             return;
         }
-        console.log("on my way now")
+        this.setState({
+          isMakingRequest: true
+        })
         this.props.updatePassword({ oldPassword, newPassword }).then(res => {
           this.setState({
             oldPassword: '',
             newPassword: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            isMakingRequest: false
           })
         })
     };
@@ -79,7 +83,7 @@ class ChangePassword extends Component {
     };
 
     render() {
-        const { oldPassword, newPassword, confirmPassword } = this.state;
+        const { oldPassword, newPassword, confirmPassword, isMakingRequest } = this.state;
         return (
             <>
                 {/* <UserHeader /> */}
@@ -251,7 +255,13 @@ class ChangePassword extends Component {
                                                     <Button
                                                         color="primary"
                                                         size="sm"
-                                                        type="submit">
+                                                        type="submit"
+                                                        disabled={oldPassword === '' ||
+                                                                  newPassword === '' ||
+                                                                  confirmPassword === '' ||
+                                                                  isMakingRequest === true}
+                                                        
+                                                        >
                                                         Save Changes
                                                     </Button>
                                                 </Col>

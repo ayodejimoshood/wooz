@@ -35,7 +35,7 @@ export const handleUpdatePassword = (passwordObject) => async (dispatch, getStat
     }
   } catch (error) {
     console.error(error)
-    toastr.error('error updating password', toastrOptions)
+    toastr.error('Your current password is incorrect', toastrOptions)
   }
 }
 
