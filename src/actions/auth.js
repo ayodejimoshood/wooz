@@ -121,6 +121,7 @@ export const handleSignInWithSocials = (userObject, social) => async (dispatch) 
       const { data } = response;
       const { email } = userObject
       data['email'] = email;
+      console.log(data)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: data
