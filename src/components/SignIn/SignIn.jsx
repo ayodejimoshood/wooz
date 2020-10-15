@@ -192,7 +192,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
                         <span className="btn-inner--icon">
                           <img
                             alt="..."
-                            src={require('../../assets/img/icons/instagram.svg')}
+                            src={require('../../assets/img/icons/facebook.svg')}
                           />
                         </span>
                         <span className="btn-inner--text">
