@@ -13,6 +13,7 @@ import {
     Container,
     Row,
     Col,
+    Spinner
 } from 'reactstrap';
 import FooterSection from '../FooterSection/FooterSection';
 // core components
@@ -260,9 +261,12 @@ class ChangePassword extends Component {
                                                                   newPassword === '' ||
                                                                   confirmPassword === '' ||
                                                                   isMakingRequest === true}
-                                                        
+                                                                  
                                                         >
                                                         Save Changes
+                                                        {
+                                                          isMakingRequest && <Spinner size="sm" color="light" style={{marginLeft: '10px'}} /> 
+                                                        }
                                                     </Button>
                                                 </Col>
                                             </Row>
