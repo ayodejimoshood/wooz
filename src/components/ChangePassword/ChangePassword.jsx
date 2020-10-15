@@ -176,13 +176,11 @@ class ChangePassword extends Component {
                                     </Row>
                                 </CardHeader>
                                 <CardBody>
-                                    <Form>
-                                        {/* <input
                                     <Form onSubmit={this.handleSubmit}>
                                         <input
                                             type="hidden"
                                             value="this is here to stop chrome from autocompleting the form"
-                                        /> */}
+                                        />
                                         <h6 className="heading-small text-muted mb-4">
                                             Feel free to update your password so
                                             your woozeee account stays secure.
@@ -198,12 +196,6 @@ class ChangePassword extends Component {
                                                         </label>
                                                         <Input
                                                             className="form-control-alternative"
-                                                            // id="input-first-name"
-                                                            
-                                                            type="password" defaultValue=""
-                                                            
-                                                            name=""
-                                                            
                                                             id="input-first-name"
                                                             placeholder="password"
                                                             type="text"
@@ -227,8 +219,6 @@ class ChangePassword extends Component {
                                                             id="input-last-name"
                                                             placeholder="password"
                                                             type="password"
-                                                            value="{lastName}"
-                                                            name="lastName"
                                                             value={newPassword}
                                                             name="newPassword"
                                                             onChange={(e) =>
