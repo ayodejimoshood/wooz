@@ -61,7 +61,7 @@ const toastrOptions = {
 
 
 //  LOGIN USER
-export const login = (payload, history) =>  (dispatch) => {
+export const login = (payload) =>  (dispatch) => {
   
   // Headers
   const config = {
@@ -69,7 +69,7 @@ export const login = (payload, history) =>  (dispatch) => {
   }
 
 
-  fetch("https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin", {
+  return fetch("https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signin", {
     method: "POST",
     body: JSON.stringify(payload),
     headers: {
@@ -83,16 +83,14 @@ export const login = (payload, history) =>  (dispatch) => {
       return
     }
     const {email} = payload
-    data['email'] = email
-    const string = JSON.stringify(data)
-    localStorage.setItem("testing", string)
+    data.user['email'] = email
     toastr.success('', `Logged in successfully`, toastrOptions)
     
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
     })
-    history.push("/")
+    return 'done'
   }).catch(function(error) {
     toastr.error(error.message, toastrOptions)
     console.log(error)
@@ -120,7 +118,7 @@ export const handleSignInWithSocials = (userObject, social) => async (dispatch) 
     if (status === 200 || status === 201) {
       const { data } = response;
       const { email } = userObject
-      data['email'] = email;
+      data.user['email'] = email;
       console.log(data)
       dispatch({
         type: LOGIN_SUCCESS,
@@ -137,35 +135,40 @@ export const handleSignInWithSocials = (userObject, social) => async (dispatch) 
 }
 
 //  REGISTER USER
-export const register = ({ firstName,phone,accountType,lastName,email,password }, history) => (dispatch) => {
-  
+export const register = (body) => async  (dispatch) => {
+  console.log('there')
   // Headers
   const config = {
+    method: 'post',
+    url: 'https://scalable-commerce-backend.herokuapp.com/api/v1/auth/signup',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    data : JSON.stringify(body)
   }
 
+
   // Request body
-  const body = JSON.stringify({ firstName,phone,accountType,lastName,email,password });
+  // const body = JSON.stringify({ firstName,phone,accountType,lastName,email,password });
 
 
-  axios.post(`${base}/auth/signup`,body, config)
-    .then(res => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-      })
-      history.push('/signin')
-      toastr.success('', 'Registration Success', toastrOptions)
-    }).catch(err => {
-      console.log(err.message)
-      toastr.error(err.message)
+  try {
+    const response =  await axios(config)
+    console.log(response)
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: response.data
+    })
+    toastr.success('', 'Registration Success', toastrOptions)
+    return 'done';
+  } catch (err) {
+    console.log(err)
+    toastr.error('email or phone number has already been used', toastrOptions)
       dispatch(returnErrors(err.message, 400 ));
       dispatch({
         type: REGISTER_FAIL
       })
-    })
+  }
 }
 
 

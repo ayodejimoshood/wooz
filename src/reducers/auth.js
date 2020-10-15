@@ -45,23 +45,21 @@ export default function(state = initialState,action){
     // case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      localStorage.removeItem('user');
-      localStorage.removeItem('testing');
       return {
         ...state,
         isLoading:false,
         isAuthenticated:false,
         token:null,
-        user:null,
+        user: {},
       }
     case UPDATE_USER_INFO:
       return {
         ...state,
-        email: action.payload.email,
         user: {
           ...state.user,
           firstname: action.payload.firstName,
-          lastName: action.payload.lastName
+          lastName: action.payload.lastName,
+          email: action.payload.email
         }
       }
     case UPDATE_NAME:

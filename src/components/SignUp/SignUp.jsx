@@ -3,7 +3,6 @@ import {Link,Redirect, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import {register} from '../../actions/auth'
-import {createMessage} from '../../actions/messages'
 import {
     Button,
     Row,
@@ -52,6 +51,7 @@ export class SignUp extends Component {
     
       onSubmit = e => {
         e.preventDefault();
+        console.log('here')
         const {
             firstName,
             phone,
@@ -73,7 +73,11 @@ export class SignUp extends Component {
             email,
             password,
           }
-          this.props.register(newUser, this.props.history)
+          this.props.registerUser(newUser).then(res => {
+            if (res === 'done') {
+              this.props.history.push('/signin')
+            }
+          })
         }
       }
 
@@ -291,7 +295,10 @@ export class SignUp extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
   }); 
+
+const mapDispatchToProps = (dispatch) => ({
+  registerUser: (user) => dispatch(register(user))
+})
   
-  
-  export default withRouter(connect(mapStateToProps, {register,createMessage})(SignUp))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignUp))
   

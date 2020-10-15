@@ -40,6 +40,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isMakingRequest, setIsMakingRequest] = useState(false)
 
   //     useEffect(() => {
 
@@ -55,8 +56,11 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
       email,
       password,
     };
-    login(newUser, history);
-    console.log(newUser, 'newUser');
+    login(newUser).then(res => {
+      if (res === 'done') {
+        history.push('/')
+      }
+    })
   };
 
   //   static propTypes = {
@@ -76,9 +80,11 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
         phone: null,
         accountType: 'customer'
       }
+      setIsMakingRequest(true)
       signInWithSocialsCredentials(userObject, 'google').then(res => {
         if (res === true) {
           history.push('/');
+          setIsMakingRequest(false)
         }
       })
       return;
@@ -104,9 +110,11 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
         accountType: 'customer'
       }
 
+      setIsMakingRequest(true)
       signInWithSocialsCredentials(userObject, 'facebook').then(res => {
         if (res === true) {
           history.push('/');
+          setIsMakingRequest(false)
         }
       })
     }
@@ -281,6 +289,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
                     }}
                     className="my-4"
                     color="danger"
+                    disabled={isMakingRequest === true}
                     type="submit">
                     Sign in
                   </Button>
@@ -329,12 +338,12 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.user.accessToken
 });
 
 const mapDispatchToProps = (dispatch) => ({
   signInWithSocialsCredentials: (userObject, social) => dispatch(handleSignInWithSocials(userObject, social)),
-  login: (newUser, history) => dispatch(login(newUser, history))
+  login: (newUser) => dispatch(login(newUser))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
