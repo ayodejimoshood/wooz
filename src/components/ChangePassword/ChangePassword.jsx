@@ -24,11 +24,6 @@ import { handleUpdatePassword } from '../../actions/userProfile';
 
 class ChangePassword extends Component {
     state = {
-        
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-        
         oldPassword: '',
         newPassword: '',
         confirmPassword: '',
@@ -48,11 +43,6 @@ class ChangePassword extends Component {
       e.preventDefault();
 
         const {
-            
-            currentPassword,
-            newPassword,
-            confirmPassword,
-            
             oldPassword,
             newPassword,
             confirmPassword,
@@ -237,13 +227,10 @@ class ChangePassword extends Component {
                                                             id="input-last-name"
                                                             placeholder="password"
                                                             type="password"
-<<<<<<< HEAD
                                                             value="{lastName}"
                                                             name="lastName"
-=======
                                                             value={newPassword}
                                                             name="newPassword"
->>>>>>> d64c18cd67e28093ca8dcdc3521bce7c35f35010
                                                             onChange={(e) =>
                                                                 this.handleChange(e)
                                                             }
