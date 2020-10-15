@@ -56,6 +56,7 @@ const CustomNavbar = (props, isAuthenticated) => {
     // };
     const [display, setDisplay] = useState(false)
     const userInfo = props.auth.user
+  
     const [isTrue, setisTrue] = useState(false)
 
 
@@ -234,7 +235,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                     {/* {!this.state.isLoggedIn && ( */}
                         
                     </Nav.Link>
-                    {!userInfo ? (
+                    {!userInfo.accessToken ? (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">
                                 <Button
@@ -259,7 +260,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                         </Nav>
                     ) : ""}
 
-                    {userInfo ? (
+                    {userInfo.accessToken ? (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
                             {userInfo ? `Hello ${userInfo.firstName}` : ''}

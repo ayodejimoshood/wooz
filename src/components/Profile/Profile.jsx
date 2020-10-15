@@ -288,8 +288,7 @@ class Profile extends Component {
 const mapStateToProps = ({ auth }) => {
   if (auth.user !== null) {
     const {
-      user: { firstName, lastName },
-      email,
+      user: { firstName, lastName, email },
   } = auth;
 
   return {

@@ -141,7 +141,6 @@ export const handleProfileUpdate = (profileObject) => (dispatch, getState) => {
 
   return Promise.all([handleNameUpdate({firstName, lastName}, accessToken), handleUpdateemail({email}, accessToken)])
     .then(res => {
-      console.log(res)
       if (res[0].message === 'User updated successfully' && res[1].message === 'User email updated successfully') {
         toastr.success('', 'Your profile has been updated successfully', toastrOptions)
         dispatch({
@@ -153,28 +152,9 @@ export const handleProfileUpdate = (profileObject) => (dispatch, getState) => {
           }
         })
         return 'done';
-      } else if (res[0].message === 'User updated successfully' && res[1].message !== 'User email updated successfully') {
-        toastr.info('', 'Name has been updated but email is not updated', toastrOptions)
-        dispatch({
-          type: UPDATE_USER_INFO,
-          payload: {
-            firstName, 
-            lastName,
-            email
-          }
-        })
-        return 'done';
-      } else if (res[0].message !== 'User updated successfully' && res[1].message === 'User email updated successfully') {
-        toastr.info('', 'Your email has been updated but name was not updated', toastrOptions)
-        dispatch({
-          type: UPDATE_USER_INFO,
-          payload: {
-            firstName, 
-            lastName,
-            email
-          }
-        })
-        return 'done';
+      } else {
+        toastr.error('This email is already in use', toastrOptions)
+        return;
       }
     })
     .catch(error => {
