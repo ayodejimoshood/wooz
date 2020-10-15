@@ -27,13 +27,7 @@ class Profile extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-        address: '',
-        city: '',
-        country: '',
-        postalCode: '',
+        isMakingRequest: false
     };
 
     componentDidMount() {
@@ -41,7 +35,7 @@ class Profile extends Component {
       this.setState({
         firstName,
         lastName,
-        email
+        email,
       })
     }
 
@@ -55,30 +49,43 @@ class Profile extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault()
+
+      
         const {
             firstName,
             lastName,
             email,
         } = this.state;
         if (this.props.email === email && this.props.firstName === firstName && this.props.lastName === lastName) {
-          console.log('all are the same')
           return;
         }
 
+        this.setState({
+          isMakingRequest: true
+        })
+
         if (this.props.email === email) {
           console.log('updating name')
-          this.props.updateNameOnly({firstName, lastName})
+          this.props.updateNameOnly({firstName, lastName}).then(res => {
+            this.setState({
+              isMakingRequest: false
+            })
+          })
           return;
         } 
 
-        this.props.updateUser({firstName, lastName, email})
+        this.props.updateUser({firstName, lastName, email}).then(res => {
+          this.setState({
+            isMakingRequest: false
+          })
+        })
         
     };
 
 
 
     render() {
-        const { firstName, lastName, email } = this.state;
+        const { firstName, lastName, email, isMakingRequest } = this.state;
         return (
             <>
                 {/* <UserHeader /> */}
@@ -257,7 +264,7 @@ class Profile extends Component {
                                                         color="primary"
                                                         size="sm"
                                                         type="submit"
-                                                        disabled={firstName === '' || lastName === '' || email === ''}
+                                                        disabled={firstName === '' || lastName === '' || email === '' || isMakingRequest === true}
                                                         >
                                                         Save Changes
                                                     </Button>
