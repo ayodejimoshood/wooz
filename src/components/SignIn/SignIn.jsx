@@ -337,9 +337,14 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.user.accessToken
-});
+const mapStateToProps = (state) => {
+  if (state.auth.user.accessToken !== null) {
+    return {
+      isAuthenticated: state.auth.user.accessToken
+    }
+
+  } 
+};
 
 const mapDispatchToProps = (dispatch) => ({
   signInWithSocialsCredentials: (userObject, social) => dispatch(handleSignInWithSocials(userObject, social)),
