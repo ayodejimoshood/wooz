@@ -121,7 +121,7 @@ export class SignUp extends Component {
                     maxWidth: '100%',
                     maxWidth: '100%',
                 }}>
-                <Col lg="4" md="7">
+                <Col sm="12" md="7">
                     <Card className="bg-light shadow border-0">
                         <CardBody className="px-lg-5 py-lg-5">
                             <div className="text-center text-muted mb-4">
@@ -129,11 +129,14 @@ export class SignUp extends Component {
                                     style={{
                                         color: '#000000',
                                         fontSize: '15px',
+                                        opacity: '0.6',
                                     }}>
                                     Sign up with credentials
                                 </small>
                             </div>
                             <Form role="form" onSubmit={this.onSubmit}>
+                            <Row>
+            <Col md="6">
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -152,6 +155,8 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
+                                <Col md="6">
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -171,6 +176,8 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
+                                <Col md="6">
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -190,6 +197,8 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
+                                <Col md="6">
                                 <FormGroup>
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -209,6 +218,8 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
+                                <Col md="6">
                                 <FormGroup>
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -227,6 +238,8 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
+                                <Col md="6">
                                 <FormGroup>
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
@@ -245,6 +258,7 @@ export class SignUp extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
+                                </Col>
                                 {/* <hr className="text-center" style={{width: '100%', margin: '0 auto'}} /> */}
                                 <div className="text-center">
                                     <Button
@@ -260,6 +274,7 @@ export class SignUp extends Component {
                                         Sign up
                                     </Button>
                                 </div>
+                                </Row>
                             </Form>
                         </CardBody>
                     </Card>
