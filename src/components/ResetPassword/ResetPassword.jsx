@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/woozeee-admin-dashboard
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/woozeee-admin-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component, useState, select, Switch } from 'react';
 // import {
 //     Jumbotron,
@@ -161,6 +144,7 @@ const ResetPassword = () => {
                                             style={{
                                                 color: '#000000',
                                                 fontSize: '15px',
+                                                opacity: '0.6',
                                             }}>
                                             Reset Password with valid email
                                             address
@@ -208,11 +192,10 @@ const ResetPassword = () => {
                                 <Col xs="6">
                                     <a
                                         className="text-light"
-                                        href="/resetpassword"
-                                        // onClick={(e) => e.preventDefault()}
+                                        href="/signin"
                                     >
                                         <small style={{ color: '#043f7c' }}>
-                                            Forgot password?
+                                            Remember Password? <b>Sign In</b>
                                         </small>
                                     </a>
                                 </Col>
@@ -220,7 +203,6 @@ const ResetPassword = () => {
                                     <a
                                         className="text-light"
                                         href="/signup"
-                                        // onClick={(e) => e.preventDefault()}
                                     >
                                         <small style={{ color: '#043f7c' }}>
                                             Create new account
