@@ -64,10 +64,10 @@ const ResetPassword = () => {
         return;
       }
         if (
-            verificationCode == '' ||
-            verificationCode == undefined ||
-            password == '' ||
-            password == undefined
+            verificationCode === '' ||
+            verificationCode === undefined ||
+            password === '' ||
+            password === undefined
         ) {
             alert('invalid email');
         } else {

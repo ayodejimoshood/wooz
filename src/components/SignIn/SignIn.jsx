@@ -28,6 +28,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Spinner,
   // Row,
   Col,
 } from 'reactstrap';
@@ -35,6 +36,8 @@ import {
 import { useHistory } from 'react-router-dom';
 
 import FooterSection from '../FooterSection/FooterSection';
+import { Loader } from 'react-bootstrap-typeahead';
+import Content from '../Loader';
 
 const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
   const history = useHistory();
@@ -56,10 +59,12 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
       email,
       password,
     };
+    setIsMakingRequest(true)
     login(newUser).then(res => {
       if (res === 'done') {
         history.push('/')
       }
+      setIsMakingRequest(false)
     })
   };
 
@@ -84,8 +89,8 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
       signInWithSocialsCredentials(userObject, 'google').then(res => {
         if (res === true) {
           history.push('/');
-          setIsMakingRequest(false)
         }
+        setIsMakingRequest(false)
       })
       return;
     } else {
@@ -114,8 +119,8 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
       signInWithSocialsCredentials(userObject, 'facebook').then(res => {
         if (res === true) {
           history.push('/');
-          setIsMakingRequest(false)
         }
+        setIsMakingRequest(false)
       })
     }
   }
@@ -140,6 +145,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
         backgroundColorx: '#043f7c',
         backgroundSize: 'cover',
       }}>
+      <Content />
       <Container
         className=""
         style={{
@@ -290,8 +296,13 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
                     className="my-4"
                     color="danger"
                     disabled={isMakingRequest === true}
+
                     type="submit">
                     Sign in
+                    {
+                      isMakingRequest && <Spinner size="sm" color="light" style={{marginLeft: '10px'}} /> 
+
+                    }
                   </Button>
                 </div>
               </Form>
@@ -338,6 +349,7 @@ const Login = ({ isAuthenticated, login, signInWithSocialsCredentials }) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state)
   if (state.auth.user.accessToken !== null) {
     return {
       isAuthenticated: state.auth.user.accessToken

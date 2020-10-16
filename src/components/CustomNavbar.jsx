@@ -37,7 +37,7 @@ import SideNav from './SideNav/SideNav';
 
 
 
-const CustomNavbar = (props, isAuthenticated) => {
+const CustomNavbar = (props) => {
   const history = useHistory()
 
   const handleSignOut = () => {
@@ -50,12 +50,7 @@ const CustomNavbar = (props, isAuthenticated) => {
   }
   
 
-    // static propTypes = {
-    //   auth: PropTypes.object.isRequired,
-    //   logout: PropTypes.func.isRequired
-    // };
     const [display, setDisplay] = useState(false)
-    const userInfo = props.auth.user
   
     const [isTrue, setisTrue] = useState(false)
 
@@ -65,8 +60,6 @@ const CustomNavbar = (props, isAuthenticated) => {
     }
 
 
-
-    // const { isAuthenticated,user } = props.auth;
 
         return (
             // <Container className='' style={{ maxWidth: '100%'}}>
@@ -235,7 +228,7 @@ const CustomNavbar = (props, isAuthenticated) => {
                     {/* {!this.state.isLoggedIn && ( */}
                         
                     </Nav.Link>
-                    {!userInfo.accessToken ? (
+                    {!props.accessToken  ? (
                         <Nav>
                             <Nav.Link eventKey={2} href="/signin">
                                 <Button
@@ -260,10 +253,10 @@ const CustomNavbar = (props, isAuthenticated) => {
                         </Nav>
                     ) : ""}
 
-                    {userInfo.accessToken ? (
+                    {props.user && props.accessToken ? (
                         <>
                             <Nav.Link style={{ color: '#043f7c' }} eventKey={2}>
-                            {userInfo ? `Hello ${userInfo.firstName}` : ''}
+                            {props.user ? `Hello ${props.user.firstName}` : ''}
                             </Nav.Link>
                             <Dropdown alignRight>
                                 <Dropdown.Toggle
@@ -323,9 +316,17 @@ const CustomNavbar = (props, isAuthenticated) => {
     }
 
 
-const mapStateToProps = ({ auth }) => ({
-    auth
-}); 
+const mapStateToProps = ({ auth }) => {
+  const { user } = auth;
+  let accessToken
+  if (user) {
+    accessToken = user.accessToken
+  }
+  return {
+    accessToken,
+    user
+  }
+}; 
 
 const mapDispatchToProps = (dispatch) => ({
   logoutUser: () => dispatch(logOut())

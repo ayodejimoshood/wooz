@@ -17,6 +17,7 @@ import {
     InputGroupText,
     InputGroup,
     Col,
+    Spinner
 } from 'reactstrap';
 import * as Formik from 'formik';
 // import axios from '../../config/axios';
@@ -47,6 +48,7 @@ export class SignUp extends Component {
         email: '',
         password: '',
         confirmPassword: '',
+        isMakingRequest: false
     };
 
     onSubmit = (e) => {
@@ -65,6 +67,7 @@ export class SignUp extends Component {
         if (password !== confirmPassword) {
             alert('Password do not match');
         } else {
+          this.setState(prevState => ({ isMakingRequest: !prevState.isMakingRequest}))
             const newUser = {
                 firstName,
                 phone,
@@ -77,6 +80,7 @@ export class SignUp extends Component {
                 if (res === 'done') {
                     this.props.history.push('/signin');
                 }
+                this.setState(prevState => ({ isMakingRequest: !prevState.isMakingRequest}))
             });
         }
     };
@@ -101,6 +105,7 @@ export class SignUp extends Component {
             password,
             confirmPassword,
             attributes,
+            isMakingRequest
         } = this.state;
 
         return (
@@ -120,7 +125,6 @@ export class SignUp extends Component {
                         width: '150vh',
                         // backgroundColor: '#043f7c',
                         // backgroundSize: 'cover',
-                        maxWidth: '100%',
                         maxWidth: '100%',
                     }}>
                     <Col sm="12" md="7">
@@ -266,8 +270,13 @@ export class SignUp extends Component {
                                                 // onClick={this.handleLogin}
                                                 type="submit"
                                                 className="my-4"
+                                                disabled={isMakingRequest === true}
+                                                aria-disabled="true"
                                                 color="danger">
                                                 Sign up
+                                                {
+                                                  isMakingRequest && <Spinner size="sm" color="light" style={{marginLeft: '10px'}} /> 
+                                                }
                                             </Button>
                                         </div>
                                     </Row>

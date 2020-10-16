@@ -13,3 +13,5 @@ function Content() {
     </section>
   );
 }
+
+export default Content;
