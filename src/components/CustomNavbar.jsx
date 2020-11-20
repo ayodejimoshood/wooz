@@ -120,7 +120,7 @@ const CustomNavbar = (props) => {
 
                         {/* start search field */}
                         <InputGroup className="" style={{ width: '650px' }}>
-                            <DropdownButton
+                            <DropdownButton style={{display: 'contents'}}
                                 as={InputGroup.Prepend}
                                 variant="outline-primary"
                                 title="All"

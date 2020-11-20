@@ -46,7 +46,7 @@ class DealsSections extends Component {
                                             <span style={{fontSize: '15px'}} class="material-icons">flight_takeoff</span>
                                             <p style={{fontSize: '8px'}}>Abuja</p>
                                         </Col>
-                                        <Col md='6' align='center' style={{marginTop: '2px'}}>
+                                        <Col md='6' align='center' style={{marginTop: '-10px'}}>
                                             <hr style={{color: '#043f7c'}}/>
                                         </Col>
                                         <Col md='3' align='center' style={{color: '#043f7c'}}>

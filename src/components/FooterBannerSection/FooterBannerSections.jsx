@@ -23,7 +23,7 @@ class FooterBannerSections extends Component {
                             {/* <img className="d-block w-100" src={Banner1} alt="First slide" /> */}
                         </Col>
                         <Col md={6}>
-                            <img className="d-block w-100" src={Banner2} alt="First slide" />
+                            <Card.Img className="d-block w-100" src={Banner2} alt="First slide" />
                         </Col>
                     </Row>
                 </Col>

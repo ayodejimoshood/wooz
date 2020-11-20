@@ -45,7 +45,7 @@ class SpecialOffersSections extends Component {
                                             <span style={{fontSize: '15px'}} class="material-icons">flight_takeoff</span>
                                             <p style={{fontSize: '8px'}}>Abuja</p>
                                         </Col>
-                                        <Col md='6' align='center' style={{marginTop: '2px'}}>
+                                        <Col md='6' align='center' style={{marginTop: '-10px'}}>
                                             {/* <span style={{fontSize: '12px'}}>22h 30m</span> */}
                                             <hr style={{color: '#043f7c'}} className='dot'/>
                                             {/* <span style={{fontSize: '12px'}}>1 Stop - DOH</span> */}
